@@ -18,8 +18,6 @@ To run the **dashboard** application:
 ```bash
 nx s dashboard
 
-### ✅ For build
 ```bash
+### ✅ For build
 nx build
-
-
