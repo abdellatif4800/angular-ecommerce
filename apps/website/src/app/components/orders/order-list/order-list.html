@@ -1,0 +1,127 @@
+<div class="flex flex-col gap-2">
+	<div class="grid grid-cols-5 gap-5">
+		<button class="btn rounded-4xl"
+		        [ngClass]="currentStatus() === 'pending' ? 'btn-secondary' : 'btn-neutral btn-outline'"
+		        (click)="changeStatus('pending')"
+		>
+			Pending
+		</button>
+
+		<button class="btn rounded-4xl"
+		        [ngClass]="currentStatus() === 'processing' ? 'btn-secondary' : 'btn-neutral btn-outline'"
+		        (click)="changeStatus('processing')"
+		>
+			Processing
+		</button>
+		<button class="btn rounded-4xl"
+		        [ngClass]="currentStatus() === 'shipped' ? 'btn-secondary' : 'btn-neutral btn-outline'"
+		        (click)="changeStatus('shipped')"
+		>
+			Shipped
+		</button>
+
+		<button class="btn rounded-4xl"
+		        [ngClass]="currentStatus() === 'delivered' ? 'btn-secondary' : 'btn-neutral btn-outline'"
+		        (click)="changeStatus('delivered')"
+		>
+			Delivered
+		</button>
+		<button class="btn rounded-4xl"
+		        [ngClass]="currentStatus() === 'canceld' ? 'btn-secondary' : 'btn-neutral btn-outline'"
+		        (click)="changeStatus('cancelld')"
+		>
+			Cancelled
+		</button>
+	</div>
+
+	@if (currentList().length !== 0) {
+	<div class="flex flex-col gap-5 overflow-y-auto">
+		@for (order of currentList(); track $index) {
+		<div class="rounded-2xl p-2 bg-gray-200 shadow-md flex flex-col gap-2">
+			<div class="flex flex-row justify-between items-center p-2 w-full">
+				<!--id & price-->
+				<div class="flex flex-col justify-between">
+					<h1>Order: {{ order._id }}</h1>
+					<div class="">
+						paymentMethod: {{ order.paymentMethod }}
+					</div>
+					<p class="font-bold text-xl">{{ order.calculatedTotal | currency }}</p>
+				</div>
+				<!--date -->
+				<div class="flex flex-col items-center gap-5">
+					<p class="text-lg">
+						<span class="font-bold text-gray-600">Created at:</span>
+						<span class="text-blue-600">
+							{{ order.createdAt | date: 'short' }}
+						</span>
+					</p>
+
+					<p class="text-lg">
+						<span class="font-bold text-gray-600">Arrive in:</span>
+						<span class="text-emerald-600">
+							{{ order.created_at | date: 'short' }}
+						</span>
+					</p>
+				</div>
+				<!--status-->
+				<div class="font-bold badge badge-soft"
+				     [ngClass]="statusBadgeColor(order.shipping_status)"
+				>
+					{{ order.status }}
+				</div>
+
+				<!-- <p-tag -->
+				<!--   [value]="order.shipping_status" -->
+				<!--   [severity]="getSeverity(order.shipping_status)" -->
+				<!-- /> -->
+
+				<!--cancel btn-->
+				@if (
+				currentStatus() !== 'canceld' &&
+				currentStatus() !== 'shipped' &&
+				currentStatus() !== 'delivered'
+				) {
+				<div class="card">
+					<button class="btn btn-error text-white" (click)="cancelOrder(order.id)">
+						Cancel
+					</button>
+				</div>
+				}
+			</div>
+
+			<!--items-->
+			<div class="flex flex-col gap-2 justify-between">
+				<div class="collapse bg-base-100 border-base-300 border">
+					<input type="checkbox">
+					<!--title-->
+					<div class="collapse-title font-semibold">Show Items</div>
+					<!--content-->
+					<div class="collapse-content text-sm grid grid-cols-2 gap-2">
+						@for (item of order.order_items; track $index) {
+						<div class="flex flex-col gap-5 bg-base-200 shadow-md p-4 rounded-2xl">
+							<p class="font-bold">
+								{{ item.product_name }}
+							</p>
+
+							<div class="flex flex-row gap-4">
+								<span>{{ item.product_price | currency }}</span>
+
+								<p><span class="font-bold">Qun:</span>{{ item.quantity }}</p>
+								<p><span class="font-bold">
+									Total:
+								</span>{{ item.item_total }}</p>
+							</div>
+						</div>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+		}
+	</div>
+	} @else {
+	<div class="mt-5 w-full flex justify-center items-center">
+		<h1 class="font-bold text-5xl opacity-40">No Orders</h1>
+	</div>
+	}
+</div>

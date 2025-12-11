@@ -1,0 +1,38 @@
+<!-- <div class="border p-2"> -->
+<footer
+  id="footer"
+  class="footer sm:footer-horizontal bg-neutral text-neutral-content p-10 flex justify-around"
+>
+  <aside>
+    <h1 class="font-black text-3xl">LOGO</h1>
+    <fieldset class="w-80">
+      <label>Enter your email address</label>
+      <div class="join">
+        <input type="text" placeholder="username@site.com" class="input input-bordered join-item" />
+        <button class="btn btn-primary join-item">Subscribe</button>
+      </div>
+    </fieldset>
+  </aside>
+  <nav class="flex flex-col gap-10">
+    <div class="flex flex-col gap-2 items-start justify-center">
+      <h6 class="footer-title">Social</h6>
+      <div class="grid grid-flow-col gap-4">
+        @for (logo of socialLogos; track $index; let idx = $index) {
+          <a [href]="logo.link">
+            <img [src]="logo.image" class="size-10" />
+          </a>
+        }
+      </div>
+    </div>
+    <div class="flex flex-col gap-2 items-start justify-center">
+      <h6 class="footer-title">Payment</h6>
+
+      <div class="grid grid-flow-col gap-4">
+        @for (logo of paymentLogos; track $index; let idx = $index) {
+          <img [src]="logo" class="size-10" />
+        }
+      </div>
+    </div>
+  </nav>
+</footer>
+<!-- </div> -->

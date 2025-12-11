@@ -1,0 +1,226 @@
+<div class="p-1 w-full h-full overflow-scroll flex flex-col gap-3">
+	<div class='flex flex-row gap-2'>
+		<dashboard-new-product-form/>
+		<!-- <dashboard-images-modal/> -->
+	</div>
+	<div class="w-full flex flex-col gap-2">
+		<!-- filter with price and stock -->
+		<div class="collapse rounded-none ">
+			<input type="checkbox">
+			<div class="collapse-title text-center font-bold text-lg bg-gray-700  h-8 flex justify-center items-center ">
+				<h1>Open Filters</h1>
+			</div>
+			<div class="collapse-content text-sm bg-gray-950  p-0 flex flex-col gap-2">
+				<div class="flex flex-row w-full">
+					<select class="w-1/8 rounded-none select p-2 bg-gray-400 text-black flex items-center justify-center"
+					        [formControl]="searchFieldContorl"
+					>
+						<option value='Name Or ID' disabled selected>Name Or ID</option>
+
+						<option value="name">Name</option>
+						<option value="id">ID</option>
+					</select>
+
+					<input [formControl]="searchTextContorl" type="text" class="input rounded-none bg-white text-black w-full">
+
+					<button (click)="searchForProductByName()"
+					        class="cursor-pointer text-black bg-gray-400 p-1"
+					>
+						<lucide-angular [img]="searchIcon"></lucide-angular>
+					</button>
+				</div>
+
+				<form class='flex flex-row gap-4' [formGroup]='filterFieldsGroup' (ngSubmit)='submitFilter()'>
+					<div class='flex flex-row gap-2 '>
+						<select class="w-1/5 select rounded-none  p-2 bg-gray-400 text-black flex items-center justify-center"
+						        formControlName="published"
+						>
+
+							<option disabled value="publish status">Publish Status</option>
+							<option value=''>All</option>
+							<option value=true>Published</option>
+							<option value=false>UnPublished</option>
+						</select>
+
+						<div class='flex flex-row gap-2'>
+							<input class="rounded-none input bg-white text-black" type='number' placeholder='Min Price' formControlName='minPrice'>
+							<input class="input  rounded-none  bg-white text-black" type='number' placeholder="Max Price" formControlName='maxPrice'>
+						</div>
+
+						<div class='flex flex-row gap-2'>
+							<input class="input rounded-none bg-white text-black" type='number' placeholder='Min Stock' formControlName='minStock'>
+							<input class="input rounded-none  bg-white text-black" type='number' placeholder="Max Stock" formControlName='maxStock'>
+						</div>
+					</div>
+
+					<button type='submit' class='rounded-none btn btn-success'>Apply</button>
+					<button (click)='resetFilters()' class='rounded-none btn btn-info'>Reset</button>
+				</form>
+			</div>
+		</div>
+
+		<div class="grid grid-cols-2 gap-5">
+
+			@for(product of products();track $index; let idx = $index){
+			<div class="bg-gray-950  flex flex-col gap-3 p-2">
+				<!-- <div class="bg-gray-950 flex flex-col gap-2 p-2"> -->
+				<figure class='relative'>
+					<span class='absolute top-2 right-2 '>
+						<dashboard-images-modal (imageName)="handleChangeImage(product._id,$event)"/>
+					</span>
+					<img [src]="product.imageUrl" alt="Shoes">
+				</figure>
+				<div class="flex flex-col w-full gap-2">
+					<div class="w-full">
+						<span class="text-primary font-bold">
+							Product ID:
+						</span>
+						{{product._id}}
+					</div>
+
+					<div class="w-full flex flex-row ">
+						<span class="text-primary font-bold">
+							Product Name:
+						</span>
+						@if (editingField().prodId === product._id && editingField().field === "productName") {
+						<div class='w-1/2 flex flex-row'>
+							<input class="bg-white text-black font-medium w-full" [formControl]="productName">
+							<button (click)="saveEditingFiled(product._id,'productName')"
+							        class="btn btn-success rounded-none size-7"
+							>
+								<lucide-angular [img]="checkIcon"></lucide-angular>
+							</button>
+						</div>
+						}@else{
+						<span class="font-medium">
+							{{product.productName}}
+						</span>
+						<button (click)="setEditMode(product,'productName')"
+						        class="btn btn-warning size-7"
+						>
+							<lucide-angular [img]="editIcon"></lucide-angular>
+						</button>
+						}
+					</div>
+
+					<div class="flex flex-row">
+						<span class="text-primary font-bold">
+							Sub-category:
+						</span>
+						@if (editingField().prodId === product._id && editingField().field === "subCategory") {
+						<div class='flex flex-row'>
+
+							<input class="bg-white text-black font-medium" value="{{product.subCategoryName}}">
+
+							<button (click)="saveEditingFiled(product._id,'subCategory')"
+							        class="rounded-none btn btn-success size-7"
+							>
+								<lucide-angular [img]="checkIcon"></lucide-angular>
+							</button>
+						</div>
+						}@else{
+						<span class="font-medium">
+							{{product.subCategoryName}}
+						</span>
+						<button (click)="setEditMode(product,'subCategory')"
+						        class="rounded-none btn btn-warning size-7"
+						>
+							<lucide-angular [img]="editIcon"></lucide-angular>
+						</button>
+						}
+					</div>
+				</div>
+				<!-- <div class="flex flex-row justify-between"> -->
+				<div class="flex flex-row gap-5 text-lg">
+					<div class='flex flex-row gap-1'>
+						<!-- Pirce -->
+						<span class="text-primary font-bold">
+							Price:
+						</span>
+						@if (editingField().prodId === product._id && editingField().field === "price") {
+						<div class='flex flex-row'>
+							<input class="w-20 bg-white text-black font-medium" value="{{product.price}}" [formControl]="price">
+							<button (click)="saveEditingFiled(product._id,'price')"
+							        class="btn btn-success size-7"
+							>
+								<lucide-angular [img]="checkIcon"></lucide-angular>
+							</button>
+						</div>
+						}@else{
+						<p class="">{{ product.price| currency }}</p>
+						<button (click)="setEditMode(product,'price')"
+						        class="btn btn-warning size-7"
+						>
+							<lucide-angular [img]="editIcon"></lucide-angular>
+						</button>
+						}
+					</div>
+
+					<!-- Stock -->
+					<div class='flex flex-row gap-1'>
+						<span class="text-primary font-bold">
+							Stock:
+						</span>
+						@if (editingField().prodId === product._id && editingField().field === "stock") {
+						<div class='flex flex-row'>
+
+							<input class="w-20 bg-white text-black font-medium" value="{{product.stock}}" [formControl]="stock">
+							<button (click)="saveEditingFiled(product._id,'stock')"
+							        class="btn btn-success size-7"
+							>
+								<lucide-angular [img]="checkIcon"></lucide-angular>
+							</button>
+						</div>
+						}@else{
+						<p class="">{{ product.stock| currency }}</p>
+						<button (click)="setEditMode(product,'stock')"
+						        class="btn btn-warning size-7"
+						>
+							<lucide-angular [img]="editIcon"></lucide-angular>
+						</button>
+						}
+					</div>
+				</div>
+
+				<div class="flex flex-row gap-8 text-lg">
+					<p class="">
+						<span class="text-primary font-bold">
+							Creatd At:
+						</span>
+						<span class="font-medium">
+							{{ product.creatdAt| date }}
+						</span>
+					</p>
+					<p class="">
+						<span class="text-primary font-bold">
+
+							Updated At:
+						</span>
+						<span class="font-medium">
+							{{ product.creatdAt| date }}
+						</span>
+					</p>
+				</div>
+				<!-- </div> -->
+
+				<div class="w-full">
+					@if(product.publish){
+					<button (click)="changePublishStatu(product._id,false)"
+					        class="w-full btn btn-success"
+					>
+						Publish
+					</button>
+					}@else{
+					<button (click)="changePublishStatu(product._id,true)"
+					        class="w-full btn btn-error"
+					>
+						UnPublish
+					</button>
+					}
+				</div>
+			</div>
+
+			}
+		</div>
+	</div>
+</div>

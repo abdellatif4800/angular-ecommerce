@@ -1,0 +1,10 @@
+input.p-inputtext {
+  background-color: #fff; /* inherit from container */
+  color: #333;
+  /* border: none;  */
+  /* flex: 1; */
+}
+
+.p-iconfield .p-inputicon {
+  cursor: pointer;
+}

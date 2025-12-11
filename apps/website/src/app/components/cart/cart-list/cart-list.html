@@ -1,0 +1,174 @@
+<div class="flex flex-col gap-5 py-2">
+<div class="">
+    <ul class="steps w-full">
+      <li
+        class="step cursor-pointer"
+        [ngClass]="{ 'step-primary': currentStep() >= 1 }"
+        (click)="changeCurrentStep(1)"
+      >
+        Cart
+      </li>
+      <li
+        class="step cursor-pointer"
+        [ngClass]="{ 'step-primary': currentStep() === 2 }"
+        (click)="changeCurrentStep(2)"
+      >
+        Confirm Order
+      </li>
+    </ul>
+  </div>
+
+  <div
+    [ngStyle]="{ display: currentStep() === 1 ? 'block' : 'none' }"
+    class="text-black relative w-full"
+  >
+    <div class="flex flex-row gap-5">
+      <div class="w-2/3">
+        @if (cartItems().length !== 0) {
+          <div class="rounded-xl bg-base-200 shadow-sm flex flex-col gap-2 p-2">
+            @for (item of cartItems(); track $index; let idx = $index) {
+              <div
+                class="rounded-xl relative flex flex-row gap-2 bg-base-100 shadow-md overflow-hidden"
+              >
+                <!-- product img -->
+                <div class="relative">
+                  <!-- <img -->
+                  <!--   [src]="item.product.images[0].photo.replace('ecom-minio-storage', 'localhost')" -->
+                  <!--   alt="Card" -->
+                  <!--   class="object-cover" -->
+                  <!-- /> -->
+                  @if (item.productDetails.discount !== 0) {
+                    <p class="absolute top-2 right-2 w-12 bg-amber-300 text-amber-700 text-lg px-1">
+                      -{{ item.productDetails.discount }}%
+                    </p>
+                  }
+                </div>
+                <div class="p-2 gap-2 flex flex-row justify-between w-full">
+                  <div class="w-2/3 flex flex-col gap-2">
+                    <h1 class="font-bold text-xl line-clamp-2">
+                      {{ item.productDetails.productName}}
+                    </h1>
+                    <!-- discount -->
+                    @if (item.productDetails.discount !== 0) {
+                      <div class="font-bold flex flex-col justify-between space-x-5">
+                        <span>
+                          ${{
+                            priceAfterDiscount(item.productDetails.price ?? 0, item.productDetails.discount ?? 0)
+                          }}
+                        </span>
+
+                        <span class="opacity-50 line-through decoration-red-500 decoration-[1.5px]">
+                          ${{ item.productDetails.price }}
+                        </span>
+                      </div>
+                    } @else {
+                      <div class="font-bold">
+                        <p>${{ item.productDetails.price }}</p>
+                      </div>
+                    }
+                    <!-- rate -->
+                    <div class="rating w-20">
+                      <div
+                        class="mask mask-star bg-secondary"
+                        aria-label="1 star"
+                        [aria-current]="item.productDetails.rate === 1"
+                      ></div>
+                      <div
+                        class="mask mask-star bg-secondary"
+                        aria-label="2 star"
+                        [aria-current]="item.productDetails.rate === 2"
+                      ></div>
+                      <div
+                        class="mask mask-star bg-secondary"
+                        aria-label="3 star"
+                        [aria-current]="item.productDetails.rate === 3"
+                      ></div>
+                      <div
+                        class="mask mask-star bg-secondary"
+                        aria-label="4 star"
+                        [aria-current]="item.productDetails.rate === 4"
+                      ></div>
+                      <div
+                        class="mask mask-star bg-secondary"
+                        aria-label="5 star"
+                        [aria-current]="item.productDetails.rate === 5"
+                      ></div>
+                    </div>
+                  </div>
+
+                  <div class="w-1/3 flex flex-col justify-around items-center">
+                    <!-- total price -->
+
+                    <!-- <h3 class="font-bold">Total: ${{ item.item_total}}</h3> -->
+
+                    <!-- quntity -->
+                    <div class="border rounded-full flex items-center gap-2 p-1">
+                      <button class="size-6 font-bold text-xl btn btn-circle btn-error text-white">
+                        <lucide-angular
+                          class="transition-all duration-500"
+                          [img]="MinusIcon"
+                        ></lucide-angular>
+                      </button>
+                      <span>{{ item.quantity }}</span>
+                      <button
+                        class="size-6 font-bold text-xl btn btn-circle btn-success text-white"
+                      >
+                        <lucide-angular
+                          class="transition-all duration-500"
+                          [img]="PlusIcon"
+                        ></lucide-angular>
+                      </button>
+                      <!-- <p-inputnumber -->
+                      <!--   [ngModel]="item.quantity" -->
+                      <!--   [showButtons]="true" -->
+                      <!--   buttonLayout="horizontal" -->
+                      <!--   spinnerMode="horizontal" -->
+                      <!--   [inputStyle]="{ width: '3rem', color: '#000' }" -->
+                      <!--   (onInput)="changeAmount(item, $event)" -->
+                      <!-- > -->
+                      <!--   <ng-template #incrementbuttonicon> -->
+                      <!--     <span class="pi pi-plus text-black"></span> -->
+                      <!--   </ng-template> -->
+                      <!--   <ng-template #decrementbuttonicon> -->
+                      <!--     <button [disabled]="item.quantity === 1"> -->
+                      <!--       <i class="pi pi-minus text-black"></i> -->
+                      <!--     </button> -->
+                      <!--   </ng-template> -->
+                      <!-- </p-inputnumber> -->
+                    </div>
+
+                    <!-- delete button -->
+                    <div class="w-full">
+                      <button (click)="deleteItem(item.id)" class="btn btn-error w-full">
+                        <lucide-angular [img]="TrashIcon"></lucide-angular>
+                      </button>
+                    </div>
+                    <!-- <button class="w-full border">asd</button> -->
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        } @else {
+          <div class="rounded-xl bg-base-200 shadow-sm flex justify-center items-center h-full">
+            <!-- <div class="h-full w-full flex justify-center items-center"> -->
+            <h1 class="font-bold text-5xl opacity-40">No Items</h1>
+          </div>
+        }
+      </div>
+
+      <div class="bg-base-200 shadow-sm w-1/3 h-60 rounded-2xl p-2 flex flex-col justify-between">
+        <button (click)="clearCart()" class="btn btn-error">
+          Clear Cart
+          <i class="pi pi-trash"></i>
+        </button>
+
+        <div class="">Items Total: ${{ cartTotal() }}</div>
+        <h1 class="font-bold text-xl">Cart Total: {{cartTotal()}}</h1>
+      </div>
+    </div>
+  </div>
+  <div [ngStyle]="{ display: currentStep() === 2 ? 'block' : 'none' }">
+    <app-checkout-dialog [currentCart]="cartItems()" />
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="w-full h-full flex flex-row  items-center gap-2 py-2">
+  @for(cat of categories();track $index){
+<div class="dropdown dropdown-start">
+  <div tabindex="0" role="button" class="btn m-1">
+        {{cat.category}}
+        <lucide-angular [img]="chevronDown" class="my-icon"></lucide-angular>
+
+      </div>
+  <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+    @for(sub of cat.subCategoriesList;track $index){
+
+          <li         [routerLink]="['/subcategory', sub._id]" [queryParams]="{ subCategoryName: sub.subCategory }"
+ class='cursor-pointer hover:bg-base-300 p-2 rounded-box'>{{sub.subCategory}}</li>
+        }
+  </ul>
+</div>
+  }
+</div>

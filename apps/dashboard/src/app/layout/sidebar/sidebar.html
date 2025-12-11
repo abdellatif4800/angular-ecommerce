@@ -1,0 +1,51 @@
+<ul class="menu flex gap-4">
+  <li>
+    <button
+      routerLink=""
+      routerLinkActive="bg-gray-500"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+      data-tip="Homepage"
+    >
+      <!-- Home icon -->
+      <lucide-angular [img]="homeIcon"></lucide-angular>
+      <span class="is-drawer-close:hidden">Homepage</span>
+    </button>
+  </li>
+
+  <li>
+    <button
+      routerLink="products"
+      routerLinkActive="bg-gray-500"
+      class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+      data-tip="Products"
+    >
+      <lucide-angular [img]="shirtIcon"></lucide-angular>
+      <span class="is-drawer-close:hidden">Products</span>
+    </button>
+  </li>
+
+  <li>
+    <button
+      routerLink="orders"
+      routerLinkActive="bg-gray-500"
+      class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+      data-tip="Orders"
+    >
+      <lucide-angular [img]="ordersIcon"></lucide-angular>
+      <span class="is-drawer-close:hidden">Orders</span>
+    </button>
+  </li>
+
+  <li>
+    <button
+      routerLink="users"
+      routerLinkActive="bg-gray-500"
+      class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+      data-tip="Users"
+    >
+      <lucide-angular [img]="usersIcon"></lucide-angular>
+      <span class="is-drawer-close:hidden">Users</span>
+    </button>
+  </li>
+</ul>

@@ -1,0 +1,11 @@
+/* :host ::ng-deep .p-accordion .p-accordionheader { */
+/*   background-color: var(--p-sky-700); */
+/* } */
+
+:host ::ng-deep .p-floatlabel input {
+  color: #000;
+}
+:host ::ng-deep .p-select .p-select-option-group-label {
+  color: red;
+  border: 1px red solid;
+}

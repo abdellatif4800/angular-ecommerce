@@ -1,0 +1,8 @@
+:host ::ng-deep .p-tabs .p-tablist {
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+}
+:host ::ng-deep .p-tabs .p-tabpanels {
+  /* padding: 10px 0 0 0; */
+  color: #000;
+  /* border: 1px red solid; */
+}

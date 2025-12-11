@@ -1,0 +1,37 @@
+<div class="h-full">
+	<div class="tabs tabs-lift">
+		<input type="radio" name="my_tabs_3" class="tab" aria-label="Cart" [checked]="currentTab() === 1" routerLink="/userLists/cart" (click)='changeTab(1)'>
+		<div class="tab-content bg-base-100 border-base-300 p-6">
+			<app-cart-list/>
+		</div>
+
+		<input type="radio" name="my_tabs_3" class="tab" aria-label="Orders" [checked]="currentTab() === 2" routerLink="/userLists/orderList" (click)='changeTab(2)'>
+		<div class="tab-content bg-base-100 border-base-300 p-6">
+			<app-order-list/>
+		</div>
+
+		<!-- <input -->
+		<!--   type="radio" -->
+		<!--   name="my_tabs_3" -->
+		<!--   class="tab" -->
+		<!--   aria-label="Tab 3" -->
+		<!--   checked="currentTab()===3" -->
+		<!-- /> -->
+		<!-- <div class="tab-content bg-base-100 border-base-300 p-6">Tab content 3</div> -->
+	</div>
+
+	<!-- <p-tabs [value]="currentTab()" class="w-full shadow-[0px_0px_2px_rgba(0,0,0.3)]"> -->
+	<!--   <p-tablist> -->
+	<!--     <p-tab [value]="1" routerLink="/userLists/cart">Cart</p-tab> -->
+	<!--     <p-tab [value]="2" routerLink="/userLists/orderList">Order List</p-tab> -->
+	<!--     <p-tab [value]="3" routerLink="/userLists/wishlist">Wishlist</p-tab> -->
+	<!--   </p-tablist> -->
+	<!--   <p-tabpanels> -->
+	<!--     <p-tabpanel [value]="1"> </p-tabpanel> -->
+	<!--     <p-tabpanel [value]="2"> </p-tabpanel> -->
+	<!--     <p-tabpanel [value]="3"> -->
+	<!--       <p class="m-0">Wishlist</p> -->
+	<!--     </p-tabpanel> -->
+	<!--   </p-tabpanels> -->
+	<!-- </p-tabs> -->
+</div>

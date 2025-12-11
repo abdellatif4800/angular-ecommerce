@@ -1,0 +1,4 @@
+:host ::ng-deep p-inputnumber input {
+  border: 2px solid #10b981; /* green border only in this component */
+  width: 50%;
+}

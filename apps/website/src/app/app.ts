@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NxWelcome } from './nx-welcome';
+import { Layout } from './layout/layout/layout';
 
 @Component({
-  imports: [NxWelcome, RouterModule],
+  imports: [Layout, RouterModule],
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
   protected title = 'website';
+
 }

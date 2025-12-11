@@ -1,0 +1,73 @@
+<nav
+  dirNavbarCheckScroll
+  class="fixed navbar bg-base-200  shadow-sm h-15 flex flex-row lg:justify-around md:justify-around items-center transition-all duration-500 z-50"
+
+  style="background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(8px);"
+>
+  <div class="flex space-x-30">
+    <a routerLink="/" class="font-bold">LOGO</a>
+  </div>
+
+  <div class="relative flex flex-row w-1/4">
+    <label class="input flex items-center justify-center">
+      <button
+        class="cursor-pointer"
+        [ngStyle]="{ opacity: searchButtonDisabled() ? '.3' : '1' }"
+        [disabled]="searchButtonDisabled()"
+        (click)="goToSearchListPage()"
+      >
+        <!-- <lucide-angular [img]="SearchIcon" class="my-icon"></lucide-angular> -->
+      </button>
+      <input type="search" required placeholder="Search" [formControl]="searchControl" />
+    </label>
+  </div>
+
+  <div class="flex space-x-2 items-center">
+    @if (!isUserLogedin()) {
+      <app-login-form></app-login-form>
+      <!-- <button class="btn btn-primary" (click)="showDialog()"> -->
+      <!--   <lucide-angular [img]="UserIcon" class="my-icon"></lucide-angular> -->
+      <!--   Login -->
+      <!-- </button> -->
+    } @else {
+      <div class="flex justify-between items-center gap-5">
+        <a routerLink="/userLists/cart">
+          <!-- <i style="font-size: 22px" class="pi pi-shopping-cart"></i> -->
+          <lucide-angular [img]="CartIcon" class="my-icon"></lucide-angular>
+        </a>
+
+        <div class="card flex justify-center">
+          <div class="dropdown dropdown-center">
+            <div tabindex="0" class="cursor-pointer avatar">
+              <div class="w-8 rounded">
+                <img src="https://img.daisyui.com/images/profile/demo/superperson@192.webp" />
+              </div>
+            </div>
+
+            <ul
+              tabindex="0"
+              class="mt-2 dropdown-content menu bg-base-300 rounded-box z-1 w-62 p-2 shadow-md flex gap-2"
+            >
+              <h1 class="rounded-2xl bg-white shadow-md font-bold p-1 text-center">
+                {{ username }}
+              </h1>
+
+              <li>
+                <button class="btn btn-neutral" routerLink="/userLists/orderList">
+                  <lucide-angular [img]="ListIcon" class="my-icon"></lucide-angular>
+                  Order List
+                </button>
+              </li>
+              <li>
+                <button class="btn btn-error" (click)="logout()">
+                  <lucide-angular [img]="LogoutIcon" class="my-icon"></lucide-angular>
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</nav>

@@ -1,0 +1,7 @@
+@import 'tailwindcss';
+
+@plugin "daisyui";
+
+.btn{
+  border-radius:0 !important
+}

@@ -14,7 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@ecommerce-angular/services": ["libs/services/src/index.ts"],
+      "@ecommerce-angular/environments": ["libs/environments/src/index.ts"],
+      "@ecommerce-angular/models": ["libs/models/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

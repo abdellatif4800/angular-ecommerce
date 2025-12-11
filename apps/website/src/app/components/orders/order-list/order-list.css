@@ -1,0 +1,5 @@
+:host ::ng-deep .p-panel .p-panel-header {
+  background-color: var(--p-sky-700);
+  /* #0284c7; */
+  color: #fff;
+}

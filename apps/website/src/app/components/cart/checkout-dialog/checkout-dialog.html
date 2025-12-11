@@ -1,0 +1,47 @@
+<div class="p-1 flex flex-col gap-5">
+	<form class="bg-base-200 shadow-md rounded-xl w-full p-2 flex flex-col gap-4"
+	      [formGroup]="checkoutForm"
+	      [ngClass]="paymentELementVisible() ? 'opacity-50' : 'opacity-100'"
+	>
+		<label class="floating-label">
+			<span>Address</span>
+			<input type="text" placeholder="Address" class="w-full input input-md" formControlName="shippning_address">
+		</label>
+
+		<div class="flex flex-row gap-4">
+			<h1 class="font-bold">Payment:</h1>
+			<div class="flex items-center">
+				<input type="radio" id="cash" class="radio radio-neutral" value="COD" formControlName="payment_method">
+				<label for="cash" class="ml-2">Cash on delivery</label>
+			</div>
+
+			<div class="flex items-center">
+				<input type="radio" id="card" class="radio radio-neutral" value="by card" formControlName="payment_method">
+				<label for="card" class="ml-2">Card</label>
+			</div>
+		</div>
+		<div class="card w-full">
+			<!-- [disabled]="paymentELementVisible()" -->
+			<button class="w-full btn btn-success"
+			        [ngClass]="paymentELementVisible() ? 'cursor-not-allowed' : 'cursor-pointer'"
+			        (click)="!paymentELementVisible() && placeOrder()"
+			>
+				Confirm
+			</button>
+		</div>
+	</form>
+
+	<div class="bg-base-200 shadow-md rounded-xl p-2"
+	     [ngStyle]="{ display: paymentELementVisible() ? 'block' : 'none' }"
+	>
+		<button class="w-full btn btn-success my-2"
+		        [disabled]="disablePayButton()"
+		        (click)="submitPayment()"
+		>
+			Pay
+		</button>
+		<div class="">
+			<div #paymentElement></div>
+		</div>
+	</div>
+</div>

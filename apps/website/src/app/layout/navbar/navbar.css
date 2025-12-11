@@ -1,0 +1,22 @@
+/* .p-iconfield { */
+/* background-color: #fff; /* your color */
+/* border: 1px solid #ccc; /* optional */
+/* border-radius: 6px; */
+/* padding: 4px; */
+/* display: flex; */
+/* align-items: center; */
+/* } */
+
+input.p-inputtext {
+  background-color: #fff; /* inherit from container */
+  color: #333;
+  /* border: none;  */
+  /* flex: 1; */
+}
+
+.p-iconfield .p-inputicon {
+  cursor: pointer;
+}
+:host ::ng-deep .p-menu .p-menu-item-content {
+  color: #000;
+}

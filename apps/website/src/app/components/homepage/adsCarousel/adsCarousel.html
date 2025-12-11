@@ -1,0 +1,36 @@
+<div class="rounded-3xl relative w-full h-70 bg-base-300 shadow-sm">
+  <!-- @for (ad of ads; track $index; let idx = $index) { -->
+  <!-- [id]="'item' + (idx + 1)" -->
+  <div
+    [ngStyle]="imageStyles()"
+    class="p-5 z-10 w-full h-full flex flex-row justify-around items-center transition-all duration-1000"
+  >
+    <div class="w-2/5 mx-h-64 p-2 font-bold text-3xl text-black transition-all duration-1000">
+      <!-- [ngStyle]="textStyles()" -->
+      <h1>
+        {{ ads[currentAdIndex()].ad_text }}
+      </h1>
+      <p class="text-gray-600 text-sm mb-2">
+        {{ ads[currentAdIndex()].adContent }}
+      </p>
+      <button class="border w-full bg-black text-white p-2">Shop Now</button>
+    </div>
+    <!-- [ngStyle]="imageStyles()" -->
+    <img
+      class="w-2/5 transition-all duration-1000 object-contain max-h-64"
+      [src]="ads[currentAdIndex()].ad_img"
+      alt=""
+    />
+  </div>
+  <!-- } -->
+  <div class="absolute bottom-2 right-0.5 translate-0.5 z-20 flex w-full justify-center gap-2 py-2">
+    @for (ad of ads; track $index; let idx = $index) {
+      <button
+        [ngClass]="{ 'btn-neutral': currentAdIndex() === idx }"
+        class="btn btn-xs w-5 h-2"
+        (click)="goToAd(idx)"
+        class="btn btn-xs btn- w-5 h-2"
+      ></button>
+    }
+  </div>
+</div>
