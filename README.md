@@ -9,7 +9,7 @@ This project uses **Nx** to manage multiple applications.
 ### ✅ Start Website App
 To run the **website** application:
 
-```bash
+
 nx s website
 
 ### ✅ Start Dashboard App
