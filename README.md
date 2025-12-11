@@ -15,9 +15,9 @@ nx s website
 ### ✅ Start Dashboard App
 To run the **dashboard** application:
 
-```bash
+
 nx s dashboard
 
-```bash
+
 ### ✅ For build
 nx build
