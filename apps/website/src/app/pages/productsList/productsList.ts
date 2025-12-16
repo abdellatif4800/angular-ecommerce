@@ -66,8 +66,8 @@ export class ProductsList implements OnInit {
       price: number;
       discount: number;
       rate: number;
-      // image: string;
-      // category: string;
+      imageUrl: string;
+      subCategoryID: string;
       stock: number;
     }[]
   >([]);
