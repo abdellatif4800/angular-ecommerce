@@ -1,85 +1,388 @@
-<div class="collapse bg-base-100 border-base-300 border">
-  <input type="checkbox" />
-  <div
-    class="collapse-title text-center font-bold text-lg bg-base-200 h-8 flex justify-center items-center"
-  >
-    <h1>Filter</h1>
+<div class="bg-base-100 border-base-300 border card-radius shadow-md sticky top-24 overflow-hidden">
+  <!-- Mobile: Collapsible Filter -->
+  <div class="lg:hidden collapse">
+    <input type="checkbox" class="peer" />
+    <div class="collapse-title text-center font-bold text-lg bg-base-200 flex justify-center items-center card-radius">
+    </div>
+    <div class="collapse-content bg-base-200">
+      <div class="p-6">
+        <form
+          class="w-full flex flex-col gap-6"
+          [formGroup]="filterForm"
+          (ngSubmit)="submitFilterForm()"
+        >
+          <!-- Price Range Section -->
+          <div class="flex flex-col gap-3">
+            <h2 class="font-bold text-lg border-b border-base-300 pb-2">Price Range</h2>
+            <div class="flex flex-col gap-4">
+              <div class="flex flex-row gap-4 items-center">
+                <label class="flex flex-col gap-1 flex-1">
+                  <span class="text-sm font-semibold">Min Price ($)</span>
+                  <input
+                    formControlName="minPrice"
+                    type="number"
+                    placeholder="0"
+                    min="0"
+                    class="input input-bordered w-full field-radius"
+                    title="Numbers Only"
+                  />
+                </label>
+                <label class="flex flex-col gap-1 flex-1">
+                  <span class="text-sm font-semibold">Max Price ($)</span>
+                  <input
+                    formControlName="maxPrice"
+                    type="number"
+                    placeholder="1000"
+                    min="0"
+                    class="input input-bordered w-full field-radius"
+                    title="Numbers Only"
+                  />
+                </label>
+              </div>
+              <div class="flex flex-col gap-2">
+                <input
+                  type="range"
+                  min="0"
+                  max="1000"
+                  value="500"
+                  class="range range-primary range-sm"
+                  disabled
+                />
+                <div class="flex justify-between text-xs opacity-60">
+                  <span>$0</span>
+                  <span>$500</span>
+                  <span>$1000</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Discount Section -->
+          <div class="flex flex-col gap-3">
+            <h2 class="font-bold text-lg border-b border-base-300 pb-2">Discount</h2>
+            <div class="flex flex-wrap gap-3">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="minDiscount"
+                  class="radio radio-primary"
+                  value="50"
+                  formControlName="minDiscount"
+                />
+                <span class="badge badge-primary badge-lg">50%+</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="minDiscount"
+                  class="radio radio-primary"
+                  value="60"
+                  formControlName="minDiscount"
+                />
+                <span class="badge badge-primary badge-lg">60%+</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="minDiscount"
+                  class="radio radio-primary"
+                  value="70"
+                  formControlName="minDiscount"
+                />
+                <span class="badge badge-primary badge-lg">70%+</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Brand Filter Section (UI only) -->
+          <div class="flex flex-col gap-3">
+            <h2 class="font-bold text-lg border-b border-base-300 pb-2">Brand</h2>
+            <div class="flex flex-wrap gap-2">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" class="checkbox checkbox-primary" disabled />
+                <span>Brand A</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" class="checkbox checkbox-primary" disabled />
+                <span>Brand B</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" class="checkbox checkbox-primary" disabled />
+                <span>Brand C</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Color Swatches Section (UI only) -->
+          <div class="flex flex-col gap-3">
+            <h2 class="font-bold text-lg border-b border-base-300 pb-2">Color</h2>
+            <div class="flex flex-wrap gap-3">
+              <label class="flex flex-col items-center gap-1 cursor-pointer">
+                <div class="w-10 h-10 rounded-full bg-red-500 border-2 border-base-300 hover:border-primary transition-all duration-300"></div>
+                <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" disabled />
+              </label>
+              <label class="flex flex-col items-center gap-1 cursor-pointer">
+                <div class="w-10 h-10 rounded-full bg-blue-500 border-2 border-base-300 hover:border-primary transition-all duration-300"></div>
+                <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" disabled />
+              </label>
+              <label class="flex flex-col items-center gap-1 cursor-pointer">
+                <div class="w-10 h-10 rounded-full bg-green-500 border-2 border-base-300 hover:border-primary transition-all duration-300"></div>
+                <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" disabled />
+              </label>
+              <label class="flex flex-col items-center gap-1 cursor-pointer">
+                <div class="w-10 h-10 rounded-full bg-yellow-500 border-2 border-base-300 hover:border-primary transition-all duration-300"></div>
+                <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" disabled />
+              </label>
+              <label class="flex flex-col items-center gap-1 cursor-pointer">
+                <div class="w-10 h-10 rounded-full bg-black border-2 border-base-300 hover:border-primary transition-all duration-300"></div>
+                <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" disabled />
+              </label>
+              <label class="flex flex-col items-center gap-1 cursor-pointer">
+                <div class="w-10 h-10 rounded-full bg-white border-2 border-base-300 hover:border-primary transition-all duration-300"></div>
+                <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" disabled />
+              </label>
+            </div>
+          </div>
+
+          <!-- Size Selector Section (UI only) -->
+          <div class="flex flex-col gap-3">
+            <h2 class="font-bold text-lg border-b border-base-300 pb-2">Size</h2>
+            <div class="flex flex-wrap gap-2">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" class="checkbox checkbox-primary" disabled />
+                <span class="btn btn-sm btn-outline">XS</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" class="checkbox checkbox-primary" disabled />
+                <span class="btn btn-sm btn-outline">S</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" class="checkbox checkbox-primary" disabled />
+                <span class="btn btn-sm btn-outline">M</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" class="checkbox checkbox-primary" disabled />
+                <span class="btn btn-sm btn-outline">L</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" class="checkbox checkbox-primary" disabled />
+                <span class="btn btn-sm btn-outline">XL</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" class="checkbox checkbox-primary" disabled />
+                <span class="btn btn-sm btn-outline">XXL</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-row gap-3 pt-4 border-t border-base-300">
+            <button type="submit" class="btn btn-primary flex-1 selector-radius">
+              Apply Filters
+            </button>
+            <button type="button" class="btn btn-outline btn-neutral selector-radius" (click)="clearForm()">
+              Clear All
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
-  <div class="collapse-content text-sm bg-base-200">
-    <form
-      class="rounded-2xl w-full justify-between items-center flex flex-row gap-2 p-2 bg-base-100 shadow-md"
-      [formGroup]="filterForm"
-      (ngSubmit)="submitFilterForm()"
-    >
-      <div class="flex flex-row justify-around items-center gap-2 p-2 w-1/3">
-        <h1 class="font-bold">Prices:</h1>
-        <div class="flex flex-row gap-2">
-          <label class="flex flex-col items-center font-bold">
-            Min:
-            <input
-              formControlName="minPrice"
-              type="number"
-              placeholder="0"
-              class="border rounded-2xl p-2 w-30 h-8 shadow-md text-center text-sm input validator"
-              title="Numbers Only"
-            />
-            <p class="validator-hint">Numbers Only</p>
-          </label>
-          <label class="flex flex-col items-center font-bold">
-            Max:
-            <input
-              formControlName="maxPrice"
-              type="number"
-              class="border rounded-2xl p-2 w-30 h-8 shadow-md text-center text-sm input validator"
-              title="Numbers Only"
-            />
-            <p class="validator-hint">Numbers Only</p>
-          </label>
+
+  <!-- Desktop: Vertical Accordion Filter -->
+  <div class="hidden lg:flex flex-row h-full">
+    <input type="checkbox" id="filter-accordion" class="hidden peer" />
+    <!-- Closed State: Vertical Text Button -->
+    <label for="filter-accordion" class="filter-toggle-btn bg-base-200 cursor-pointer flex items-center justify-center w-12 min-w-12 transition-all duration-300 hover:bg-base-300">
+      <span class="filter-vertical-text font-bold text-lg">FILTER</span>
+    </label>
+    <!-- Open State: Full Sidebar -->
+    <div class="filter-content w-0 overflow-hidden transition-all duration-300 peer-checked:w-80">
+      <div class="w-80">
+        <div class="bg-base-200">
+          <form
+            class="w-full flex flex-col gap-6 p-6"
+            [formGroup]="filterForm"
+            (ngSubmit)="submitFilterForm()"
+          >
+
+            <!-- Action Buttons -->
+            <div class="flex flex-row gap-3 pt-4 border-t border-base-300">
+              <button type="submit" class="btn btn-primary flex-1 selector-radius">
+                Apply Filters
+              </button>
+              <button type="button" class="btn btn-outline btn-neutral selector-radius" (click)="clearForm()">
+                Clear All
+              </button>
+            </div>
+
+            <!-- Price Range Section -->
+        <div class="flex flex-col gap-3">
+          <h2 class="font-bold text-lg border-b border-base-300 pb-2">Price Range</h2>
+          <div class="flex flex-col gap-4">
+            <div class="flex flex-row gap-4 items-center">
+              <label class="flex flex-col gap-1 flex-1">
+                <span class="text-sm font-semibold">Min Price ($)</span>
+                <input
+                  formControlName="minPrice"
+                  type="number"
+                  placeholder="0"
+                  min="0"
+                  class="input input-bordered w-full field-radius"
+                  title="Numbers Only"
+                />
+              </label>
+              <label class="flex flex-col gap-1 flex-1">
+                <span class="text-sm font-semibold">Max Price ($)</span>
+                <input
+                  formControlName="maxPrice"
+                  type="number"
+                  placeholder="1000"
+                  min="0"
+                  class="input input-bordered w-full field-radius"
+                  title="Numbers Only"
+                />
+              </label>
+            </div>
+            <div class="flex flex-col gap-2">
+              <input
+                type="range"
+                min="0"
+                max="1000"
+                value="500"
+                class="range range-primary range-sm"
+                disabled
+              />
+              <div class="flex justify-between text-xs opacity-60">
+                <span>$0</span>
+                <span>$500</span>
+                <span>$1000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Discount Section -->
+        <div class="flex flex-col gap-3">
+          <h2 class="font-bold text-lg border-b border-base-300 pb-2">Discount</h2>
+          <div class="flex flex-wrap gap-3">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                name="minDiscount"
+                class="radio radio-primary"
+                value="50"
+                formControlName="minDiscount"
+              />
+              <span class="badge badge-primary badge-lg">50%+</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                name="minDiscount"
+                class="radio radio-primary"
+                value="60"
+                formControlName="minDiscount"
+              />
+              <span class="badge badge-primary badge-lg">60%+</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                name="minDiscount"
+                class="radio radio-primary"
+                value="70"
+                formControlName="minDiscount"
+              />
+              <span class="badge badge-primary badge-lg">70%+</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Brand Filter Section (UI only) -->
+        <div class="flex flex-col gap-3">
+          <h2 class="font-bold text-lg border-b border-base-300 pb-2">Brand</h2>
+          <div class="flex flex-wrap gap-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="checkbox checkbox-primary" disabled />
+              <span>Brand A</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="checkbox checkbox-primary" disabled />
+              <span>Brand B</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="checkbox checkbox-primary" disabled />
+              <span>Brand C</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Color Swatches Section (UI only) -->
+        <div class="flex flex-col gap-3">
+          <h2 class="font-bold text-lg border-b border-base-300 pb-2">Color</h2>
+          <div class="flex flex-wrap gap-3">
+            <label class="flex flex-col items-center gap-1 cursor-pointer">
+              <div class="w-10 h-10 rounded-full bg-red-500 border-2 border-base-300 hover:border-primary transition-all duration-300"></div>
+              <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" disabled />
+            </label>
+            <label class="flex flex-col items-center gap-1 cursor-pointer">
+              <div class="w-10 h-10 rounded-full bg-blue-500 border-2 border-base-300 hover:border-primary transition-all duration-300"></div>
+              <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" disabled />
+            </label>
+            <label class="flex flex-col items-center gap-1 cursor-pointer">
+              <div class="w-10 h-10 rounded-full bg-green-500 border-2 border-base-300 hover:border-primary transition-all duration-300"></div>
+              <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" disabled />
+            </label>
+            <label class="flex flex-col items-center gap-1 cursor-pointer">
+              <div class="w-10 h-10 rounded-full bg-yellow-500 border-2 border-base-300 hover:border-primary transition-all duration-300"></div>
+              <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" disabled />
+            </label>
+            <label class="flex flex-col items-center gap-1 cursor-pointer">
+              <div class="w-10 h-10 rounded-full bg-black border-2 border-base-300 hover:border-primary transition-all duration-300"></div>
+              <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" disabled />
+            </label>
+            <label class="flex flex-col items-center gap-1 cursor-pointer">
+              <div class="w-10 h-10 rounded-full bg-white border-2 border-base-300 hover:border-primary transition-all duration-300"></div>
+              <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" disabled />
+            </label>
+          </div>
+        </div>
+
+        <!-- Size Selector Section (UI only) -->
+        <div class="flex flex-col gap-3">
+          <h2 class="font-bold text-lg border-b border-base-300 pb-2">Size</h2>
+          <div class="flex flex-wrap gap-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="checkbox checkbox-primary" disabled />
+              <span class="btn btn-sm btn-outline">XS</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="checkbox checkbox-primary" disabled />
+              <span class="btn btn-sm btn-outline">S</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="checkbox checkbox-primary" disabled />
+              <span class="btn btn-sm btn-outline">M</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="checkbox checkbox-primary" disabled />
+              <span class="btn btn-sm btn-outline">L</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="checkbox checkbox-primary" disabled />
+              <span class="btn btn-sm btn-outline">XL</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="checkbox checkbox-primary" disabled />
+              <span class="btn btn-sm btn-outline">XXL</span>
+            </label>
+          </div>
+        </div>
+
+          </form>
         </div>
       </div>
-      <!--Discount -->
-      <div class="w-1/4 flex flex-row justify-around items-center gap-2 p-2">
-        <h1 class="font-bold">Discount:</h1>
-        <div class="flex flex-row gap-2">
-          <label class="flex flex-row items-center gap-1">
-            <span>50%</span>
-            <input
-              type="radio"
-              name="minDiscount"
-              class="radio"
-              value="50"
-              formControlName="minDiscount"
-            />
-          </label>
-
-          <label class="flex flex-row items-center gap-1">
-            <span>60%</span>
-            <input
-              type="radio"
-              name="minDiscount"
-              class="radio"
-              value="60"
-              formControlName="minDiscount"
-            />
-          </label>
-
-          <label class="flex flex-row items-center gap-1">
-            <span>70%</span>
-            <input
-              type="radio"
-              name="minDiscount"
-              class="radio"
-              value="70"
-              formControlName="minDiscount"
-            />
-          </label>
-        </div>
-      </div>
-
-      <div class="flex flex-col gap-2">
-        <button type="submit" class="btn btn-success">Apply</button>
-        <button type="button" class="btn btn-neutral" (click)="clearForm()">Clear</button>
-      </div>
-    </form>
+    </div>
   </div>
 </div>

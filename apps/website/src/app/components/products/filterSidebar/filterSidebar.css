@@ -2,3 +2,40 @@
   border: 2px solid #10b981; /* green border only in this component */
   width: 50%;
 }
+
+/* Vertical Accordion Styles */
+.filter-toggle-btn {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  user-select: none;
+}
+
+.filter-vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  letter-spacing: 0.3em;
+  transform: rotate(180deg);
+  white-space: nowrap;
+}
+
+.filter-content {
+  transition: width 0.3s ease-in-out;
+  width: 0;
+  overflow: hidden;
+}
+
+#filter-accordion:checked ~ .filter-content {
+  width: 20rem !important;
+}
+
+/* Ensure the container maintains height */
+:host {
+  display: block;
+}
+
+/* Hide checkbox but keep it functional */
+#filter-accordion {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}

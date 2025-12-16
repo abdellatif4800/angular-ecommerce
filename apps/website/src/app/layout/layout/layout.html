@@ -1,8 +1,23 @@
-<div data-theme='silk'  class="border border-green-500 w-full flex flex-col justify-between min-h-screen">
+<div data-theme='bumblebee' class="w-full flex flex-col justify-between min-h-screen bg-base-100">
   <navbar></navbar>
 
-  <main class="z-10 flex-grow py-20 lg:w-3/4 md:w-full md:px-2 m-auto ">
+  <main class="z-10 flex-grow py-20 lg:w-3/4 md:w-full md:px-2 m-auto">
     <ng-content />
   </main>
   <layout-footer></layout-footer>
+
+  <!-- Toast Notification Container -->
+  <div class="toast toast-top toast-end z-50">
+    <!-- Toast notifications will be dynamically added here -->
+    <!-- Example structure (to be controlled by TS):
+    <div class="alert alert-success shadow-lg">
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>Item added to cart successfully!</span>
+      </div>
+    </div>
+    -->
+  </div>
 </div>

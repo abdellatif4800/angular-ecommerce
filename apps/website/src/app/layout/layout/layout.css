@@ -5,30 +5,21 @@ body {
   height: 100%;
 }
 
-
-.websiteBackground {
-  position: relative;
-  background-image: url('/wallpaper6.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+/* Global spacing and radius utilities */
+.container-section {
+  padding: 2rem 1rem;
+  margin: 1rem 0;
 }
 
-.websiteBackground::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7); /* black overlay with 50% opacity */
-  z-index: 1;
+.card-radius {
+  border-radius: var(--radius-box);
 }
 
-/* Then your content inside needs higher z-index */
-.websiteBackground > * {
-  position: relative;
-  /* z-index: 200; */
+.field-radius {
+  border-radius: var(--radius-field);
+}
+
+.selector-radius {
+  border-radius: var(--radius-selector);
 }
 

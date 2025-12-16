@@ -1,38 +1,89 @@
-<!-- <div class="border p-2"> -->
-<footer
-  id="footer"
-  class="footer sm:footer-horizontal bg-neutral text-neutral-content p-10 flex justify-around"
->
-  <aside>
-    <h1 class="font-black text-3xl">LOGO</h1>
-    <fieldset class="w-80">
-      <label>Enter your email address</label>
-      <div class="join">
-        <input type="text" placeholder="username@site.com" class="input input-bordered join-item" />
-        <button class="btn btn-primary join-item">Subscribe</button>
-      </div>
-    </fieldset>
-  </aside>
-  <nav class="flex flex-col gap-10">
-    <div class="flex flex-col gap-2 items-start justify-center">
-      <h6 class="footer-title">Social</h6>
-      <div class="grid grid-flow-col gap-4">
-        @for (logo of socialLogos; track $index; let idx = $index) {
-          <a [href]="logo.link">
-            <img [src]="logo.image" class="size-10" />
-          </a>
-        }
-      </div>
-    </div>
-    <div class="flex flex-col gap-2 items-start justify-center">
-      <h6 class="footer-title">Payment</h6>
+<footer id="footer" class="footer bg-base-200 text-base-content p-10 lg:p-16 border-t border-base-300">
+  <div class="lg:w-3/4 mx-auto w-full">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+      <!-- Company Info & Newsletter -->
+      <aside class="flex flex-col gap-4">
+        <h1 class="font-black text-3xl text-primary">LOGO</h1>
+        <p class="text-sm opacity-80">
+          Your trusted e-commerce destination for quality products and exceptional service.
+        </p>
+        <fieldset class="w-full">
+          <label class="label">
+            <span class="label-text font-semibold">Subscribe to Newsletter</span>
+          </label>
+          <div class="join w-full">
+            <input
+              type="email"
+              placeholder="your@email.com"
+              class="input input-bordered join-item w-full field-radius"
+            />
+            <button class="btn btn-primary join-item selector-radius">Subscribe</button>
+          </div>
+        </fieldset>
+      </aside>
 
-      <div class="grid grid-flow-col gap-4">
-        @for (logo of paymentLogos; track $index; let idx = $index) {
-          <img [src]="logo" class="size-10" />
-        }
-      </div>
+      <!-- Customer Service -->
+      <nav class="flex flex-col gap-4">
+        <h6 class="footer-title text-lg font-bold">Customer Service</h6>
+        <ul class="menu menu-vertical gap-2">
+          <li><a class="link link-hover">Contact Us</a></li>
+          <li><a class="link link-hover">FAQs</a></li>
+          <li><a class="link link-hover">Shipping Information</a></li>
+          <li><a class="link link-hover">Returns & Exchanges</a></li>
+          <li><a class="link link-hover">Track Your Order</a></li>
+          <li><a class="link link-hover">Size Guide</a></li>
+        </ul>
+      </nav>
+
+      <!-- About Us -->
+      <nav class="flex flex-col gap-4">
+        <h6 class="footer-title text-lg font-bold">About Us</h6>
+        <ul class="menu menu-vertical gap-2">
+          <li><a class="link link-hover">Our Story</a></li>
+          <li><a class="link link-hover">Careers</a></li>
+          <li><a class="link link-hover">Blog</a></li>
+          <li><a class="link link-hover">Press</a></li>
+          <li><a class="link link-hover">Sustainability</a></li>
+          <li><a class="link link-hover">Terms & Conditions</a></li>
+          <li><a class="link link-hover">Privacy Policy</a></li>
+        </ul>
+      </nav>
+
+      <!-- Social Media & Payment -->
+      <nav class="flex flex-col gap-6">
+        <div class="flex flex-col gap-3">
+          <h6 class="footer-title text-lg font-bold">Follow Us</h6>
+          <div class="flex flex-wrap gap-3">
+            @for (logo of socialLogos; track $index; let idx = $index) {
+              <a
+                [href]="logo.link"
+                class="btn btn-circle btn-ghost hover:btn-primary transition-colors duration-300"
+                [attr.aria-label]="'Follow us on ' + logo.link"
+              >
+                <img [src]="logo.image" class="w-6 h-6" [alt]="'Social media icon ' + (idx + 1)" />
+              </a>
+            }
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h6 class="footer-title text-lg font-bold">Payment Methods</h6>
+          <div class="flex flex-wrap gap-3">
+            @for (logo of paymentLogos; track $index; let idx = $index) {
+              <div class="bg-base-100 p-2 card-radius shadow-sm hover:shadow-md transition-shadow duration-300">
+                <img [src]="logo" class="h-8 w-auto" [alt]="'Payment method ' + (idx + 1)" />
+              </div>
+            }
+          </div>
+        </div>
+      </nav>
     </div>
-  </nav>
+
+    <!-- Copyright -->
+    <div class="divider my-6"></div>
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm opacity-70">
+      <p>&copy; 2024 E-Commerce Store. All rights reserved.</p>
+      <p>Made with ❤️ for our customers</p>
+    </div>
+  </div>
 </footer>
-<!-- </div> -->

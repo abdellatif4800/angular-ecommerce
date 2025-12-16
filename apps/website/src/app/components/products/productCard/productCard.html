@@ -1,85 +1,83 @@
-<div class="transition-all duration-100 overflow-hidden card bg-base-100 shadow-sm w-full">
-  <div class="relative">
-    <figure class="w-full h-48">
+<div class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 card-radius overflow-hidden group w-full h-full flex flex-col">
+  <!-- Product Image Section -->
+  <figure class="relative w-full h-56 overflow-hidden bg-base-200">
+    <a
+      [routerLink]="['/product', product()?.productName]"
+      [queryParams]="{ id: product()?._id, category: product()?.subCategoryID, name: product()?.productName }"
+      class="block w-full h-full"
+    >
       <img
-        [routerLink]="['/product', product()?.productName]"
-        [queryParams]="{ id: product()?._id, category: product()?.subCategoryID, name: product()?.productName }"
         [src]="product()?.imageUrl"
         [alt]="product()?.productName"
-        class="cursor-pointer w-full h-full object-cover"
+        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
       />
-    </figure>
+    </a>
     @if (product()?.discount !== 0) {
-      <p class="absolute top-2 right-2 w-12 bg-amber-300 text-amber-700 text-lg px-1">
+      <div class="badge badge-primary absolute top-3 right-3 shadow-lg">
         -{{ product()?.discount }}%
-      </p>
+      </div>
     }
+  </figure>
 
-    <!-- <div class="card-actions justify-end"> -->
-    <!--   <div class="badge badge-outline">Fashion</div> -->
-    <!--   <div class="badge badge-outline">Products</div> -->
-    <!-- </div> -->
-  </div>
-  <div class="card-body">
+  <!-- Product Info Section -->
+  <div class="card-body p-4 flex flex-col flex-grow gap-3">
+    <!-- Title and Rating -->
     <div class="flex flex-col gap-2">
-      <p class="line-clamp-2 card-title font-normal text-lg">
-        {{ product()?.productName }}
-      </p>
-      <div class="rating w-20">
-        <div
-          class="mask mask-star bg-secondary"
-          aria-label="1 star"
-          [aria-current]="product()?.rate === 1"
-        ></div>
-        <div
-          class="mask mask-star bg-secondary"
-          aria-label="2 star"
-          [aria-current]="product()?.rate === 2"
-        ></div>
-        <div
-          class="mask mask-star bg-secondary"
-          aria-label="3 star"
-          [aria-current]="product()?.rate === 3"
-        ></div>
-        <div
-          class="mask mask-star bg-secondary"
-          aria-label="4 star"
-          [aria-current]="product()?.rate === 4"
-        ></div>
-        <div
-          class="mask mask-star bg-secondary"
-          aria-label="5 star"
-          [aria-current]="product()?.rate === 5"
-        ></div>
+      <h2 class="card-title text-base font-semibold line-clamp-2 min-h-[3rem]">
+        <a
+          [routerLink]="['/product', product()?.productName]"
+          [queryParams]="{ id: product()?.productName, category: product()?.subCategoryID, name: product()?.productName }"
+          class="hover:text-primary transition-colors duration-300"
+        >
+          {{ product()?.productName }}
+        </a>
+      </h2>
+      <div class="rating rating-sm">
+        @for (star of [1, 2, 3, 4, 5]; track star) {
+          <input
+            type="radio"
+            [name]="'rating-' + product()?._id"
+            class="mask mask-star-2 bg-warning"
+            [checked]="product()?.rate === star"
+            [disabled]="true"
+            [attr.aria-label]="star + ' stars'"
+          />
+        }
       </div>
     </div>
-    <!-- <div class="divider"></div> -->
-    <!-- <div class="card-actions justify-end"> -->
-    <!--   <button class="btn btn-primary">Buy Now</button> -->
-    <!-- </div> -->
-    <div class="flex justify-between items-center">
+
+    <!-- Price Section -->
+    <div class="flex items-center gap-2 mt-auto">
       @if (product()?.discount !== 0) {
-        <div class="flex flex-col justify-between text-lg">
-          <span class="font-bold">
+        <div class="flex flex-col">
+          <span class="text-xl font-bold text-primary">
             ${{ priceAfterDiscount(product()?.price ?? 0, product()?.discount ?? 0) }}
           </span>
-          <span class="opacity-70 line-through decoration-red-500 decoration-[1.5px]">
+          <span class="text-sm opacity-60 line-through">
             ${{ product()?.price }}
           </span>
         </div>
       } @else {
-        <div class="font-bold text-lg flex flex-row">
-          <p>${{ product()?.price }}</p>
-        </div>
+        <span class="text-xl font-bold">${{ product()?.price }}</span>
       }
-      <div class="flex flex-row gap-2">
-        <button class="btn btn-outline btn-error size-8">
-          <lucide-angular class="transition-all duration-500" [img]="HeartIcon"></lucide-angular>
-        </button>
-        <button class="btn btn-primary size-8" (click)="addItemToCart()">
-          <lucide-angular class="transition-all duration-500" [img]="CartIcon"></lucide-angular>
-        </button>
-      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="card-actions justify-end gap-2 mt-2">
+      <button
+        class="btn btn-ghost btn-sm btn-circle hover:btn-error transition-colors duration-300"
+        [attr.aria-label]="'Add to wishlist'"
+      >
+        <lucide-angular [img]="HeartIcon" class="w-4 h-4"></lucide-angular>
+      </button>
+      <button
+        class="btn btn-primary btn-sm flex-1 selector-radius"
+        (click)="addItemToCart()"
+        [attr.aria-label]="'Add to cart'"
+      >
+        <lucide-angular [img]="CartIcon" class="w-4 h-4"></lucide-angular>
+        <span class="hidden sm:inline">Add to Cart</span>
+      </button>
     </div>
   </div>
 </div>

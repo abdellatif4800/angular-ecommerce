@@ -1,38 +1,54 @@
-<div class="w-full flex flex-col gap-6 relative">
-  <div class="breadcrumbs text-sm h-10 flex items-center">
+<div class="w-full flex flex-col gap-6 relative bg-base-100 min-h-screen">
+  <!-- Breadcrumbs -->
+  <div class="breadcrumbs text-sm bg-base-200 card-radius p-4 shadow-sm">
     <ul>
       <li>
-        <a routerLink="/">
-          HomeIcon
-          <!-- <lucide-angular [img]="HomeIcon"></lucide-angular> -->
+        <a routerLink="/" class="flex items-center gap-1">
+          <lucide-angular [img]="HomeIcon" class="w-4 h-4"></lucide-angular>
+          Home
         </a>
       </li>
       <li>
-        <a routerLink="/categories"> Category </a>
+        <a routerLink="/categories">Category</a>
       </li>
-
-      <li>
+      <li class="text-primary font-semibold">
         {{ currentCategory | uppercase }}
       </li>
     </ul>
   </div>
 
-  <comp-filter-sidebar (currentList)="getFilteredData($event)"></comp-filter-sidebar>
+  <!-- Filter and Products Side by Side -->
+  <div class="flex flex-col lg:flex-row gap-6">
+    <!-- Filter Sidebar -->
+    <aside class="w-full lg:w-auto flex-shrink-0">
+      <comp-filter-sidebar (currentList)="getFilteredData($event)"></comp-filter-sidebar>
+    </aside>
 
-  <div class="rounded-2xl p-2 bg-base-200 shadow-md h-full w-full grid grid-cols-5 gap-2">
-    @if (products().length === 0) {
-      <p class="text-4xl font-bold col-span-5 flex justify-center items-center text-gray-500">
-        No products found
-      </p>
-    } @else {
-      @for (prod of products(); track $index; let idx = $index) {
-        <app-comp-product-card [product]="prod"></app-comp-product-card>
+    <!-- Products Grid -->
+    <div class="flex-1 flex flex-col gap-6">
+      <div class="bg-base-100 card-radius p-4 shadow-md">
+        @if (products().length === 0) {
+          <div class="flex flex-col items-center justify-center py-20">
+            <p class="text-4xl font-bold text-base-content opacity-40 mb-4">No products found</p>
+            <p class="text-base-content opacity-60">Try adjusting your filters or browse other categories</p>
+          </div>
+        } @else {
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            @for (prod of products(); track $index; let idx = $index) {
+              <app-comp-product-card [product]="prod"></app-comp-product-card>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Pagination -->
+      @if (products().length > 0) {
+        <div class="join flex justify-center items-center">
+          @for (i of [].constructor(roundUpPages(totalProducts() / 10)); track i; let idx = $index) {
+            <button class="join-item btn btn-sm selector-radius">{{ idx + 1 }}</button>
+          }
+        </div>
       }
-    }
-  </div>
-  <div class="join flex justify-center items-center">
-    @for (i of [].constructor(roundUpPages(totalProducts() / 10)); track i; let idx = $index) {
-      <button class="join-item btn">{{ idx + 1 }}</button>
-    }
+    </div>
   </div>
 </div>

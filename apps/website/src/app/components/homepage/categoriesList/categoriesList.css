@@ -1,0 +1,45 @@
+/* Ensure dropdowns are not clipped by parent containers */
+nav {
+  overflow: visible !important;
+}
+
+nav > div {
+  overflow: visible !important;
+}
+
+nav > div > div {
+  position: relative;
+  overflow: visible !important;
+}
+
+/* Ensure dropdown content appears above other elements and outside container */
+details.dropdown {
+  position: relative;
+}
+
+details.dropdown .dropdown-content {
+  position: absolute !important;
+  z-index: 50 !important;
+  top: 100% !important;
+  left: 0 !important;
+}
+
+/* Style the summary element to look like a button */
+details.dropdown summary {
+  list-style: none;
+}
+
+details.dropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Keep dropdown open when details is open */
+details.dropdown[open] .dropdown-content {
+  display: block !important;
+}
+
+/* Prevent dropdown from closing when clicking on links */
+details.dropdown .dropdown-content a {
+  pointer-events: auto;
+}
+

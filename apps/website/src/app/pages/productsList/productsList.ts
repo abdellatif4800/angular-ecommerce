@@ -14,6 +14,7 @@ import { UpperCasePipe } from '@angular/common';
     RouterLink,
     FilterSidebar,
     ProductCard,
+    LucideAngularModule,
   ],
   templateUrl: './productsList.html',
   styleUrl: './productsList.css',
