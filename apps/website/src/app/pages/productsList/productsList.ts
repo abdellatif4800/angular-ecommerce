@@ -1,7 +1,12 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, inject, signal, OnInit, effect } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { LogOut, LucideAngularModule, ShoppingCart, Home } from 'lucide-angular';
+import {
+  LogOut,
+  LucideAngularModule,
+  ShoppingCart,
+  Home,
+} from 'lucide-angular';
 import { FilterSidebar } from '../../components/products/filterSidebar/filterSidebar';
 import { ProductCard } from '../../components/products/productCard/productCard';
 import { ProductsServices } from '@ecommerce-angular/services';
@@ -28,37 +33,26 @@ export class ProductsList implements OnInit {
   readonly HomeIcon = Home;
 
   ngOnInit() {
-    // const productsList = this.data()?.['productsList'][0].products;
-    this.products.set(this.data()?.['productsList'])
-    console.log(this.products())
+    this.products.set(this.data()?.['productsList']);
 
-    // this.activatedRoute.queryParams.subscribe({
-    //   next: (res: any) => {
-    //     console.log(res);
-    //   },
-    // });
-    // this.totalProducts.set(this.data()?.['productsList'].count);
-    // console.log(Math.round(this.data()?.['productsList'].count / 10));
-
-    // this.products.set(
-    //   productsList.map((prod: any) => ({
-    //     id: prod.id,
-    //     category: prod.category,
-    //     name: prod.name,
-    //     price: prod.price,
-    //     discount: prod.discount,
-    //     rate: prod.rate,
-    //     image: prod.images[0].photo.replace('ecom-minio-storage', 'localhost'),
-    //     stock: prod.stock,
-    //   })),
-    // );
+    this.activatedRoute.params.subscribe({
+      next: (res: any) => {
+        this.productService
+          .getListOfProducts(`?subcategoryId=${res.id}`)
+          .subscribe({
+            next: (res: any) => {
+              this.products.set(res);
+            },
+          });
+      },
+    });
   }
 
   nextFilterdPage = signal<string>('');
 
   totalProducts = signal<number>(0);
 
-  currentCategory = this.activatedRoute.snapshot.queryParams['subCategoryName']
+  currentCategory = this.activatedRoute.snapshot.queryParams['subCategoryName'];
 
   products = signal<
     {
@@ -70,6 +64,7 @@ export class ProductsList implements OnInit {
       imageUrl: string;
       subCategoryID: string;
       stock: number;
+      subCategoryName: string;
     }[]
   >([]);
 
@@ -77,17 +72,16 @@ export class ProductsList implements OnInit {
     return Math.round(value);
   }
 
-
   onPageChange(event: any) {
     this.nextFilterdPage.set(
-      `?category=${this.currentCategory.toLocaleLowerCase()}&page=${(event.page ?? 0) + 1}`,
-
-
+      `?category=${this.currentCategory.toLocaleLowerCase()}&page=${
+        (event.page ?? 0) + 1
+      }`
     );
 
     this.productService.getListOfProducts(this.nextFilterdPage()).subscribe({
       next: (res: any) => {
-        console.log(res.results);
+        // console.log(res.results);
 
         const productsList = res.results;
 
@@ -99,9 +93,12 @@ export class ProductsList implements OnInit {
             price: prod.price,
             discount: prod.discount,
             rate: prod.rate,
-            image: prod.images[0].photo.replace('ecom-minio-storage', 'localhost'),
+            image: prod.images[0].photo.replace(
+              'ecom-minio-storage',
+              'localhost'
+            ),
             stock: prod.stock,
-          })),
+          }))
         );
       },
     });
@@ -121,8 +118,7 @@ export class ProductsList implements OnInit {
         rate: prod.rate,
         image: prod.images[0].photo.replace('ecom-minio-storage', 'localhost'),
         stock: prod.stock,
-      })),
+      }))
     );
   }
-
 }

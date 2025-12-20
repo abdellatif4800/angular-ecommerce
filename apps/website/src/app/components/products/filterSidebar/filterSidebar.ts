@@ -1,4 +1,11 @@
-import { Component, effect, inject, output, signal, OnInit } from '@angular/core';
+import {
+  Component,
+  effect,
+  inject,
+  output,
+  signal,
+  OnInit,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -6,17 +13,13 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ProductsServices } from '@ecommerce-angular/services'
+import { ProductsServices } from '@ecommerce-angular/services';
 import { ActivatedRoute } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'comp-filter-sidebar',
-  imports: [
-    CurrencyPipe,
-    FormsModule,
-    ReactiveFormsModule,
-  ],
+  imports: [CurrencyPipe, FormsModule, ReactiveFormsModule],
   templateUrl: './filterSidebar.html',
   styleUrl: './filterSidebar.css',
 })
@@ -55,7 +58,11 @@ export class FilterSidebar implements OnInit {
       next: (res) => {
         console.log(res);
 
-        this.currentList.emit({ data: res.results, count: res.count, nextPageQuery: res.next });
+        this.currentList.emit({
+          data: res.results,
+          count: res.count,
+          nextPageQuery: res.next,
+        });
 
         //
       },
@@ -65,13 +72,26 @@ export class FilterSidebar implements OnInit {
   submitFilterForm() {
     this.productService
       .getListOfProducts(
-        `?${this.filterForm.value.maxPrice ? `price__lte=${this.filterForm.value.maxPrice}` : ''}&${this.filterForm.value.minPrice ? `price__gte=${this.filterForm.value.minPrice}` : ''}&${this.filterForm.value.minDiscount ? `discount__gte=${this.filterForm.value.minDiscount}` : ''}&category=${this.activeRoute.snapshot.params.name}`,
+        `?${this.filterForm.value.maxPrice
+          ? `price__lte=${this.filterForm.value.maxPrice}`
+          : ''
+        }&${this.filterForm.value.minPrice
+          ? `price__gte=${this.filterForm.value.minPrice}`
+          : ''
+        }&${this.filterForm.value.minDiscount
+          ? `discount__gte=${this.filterForm.value.minDiscount}`
+          : ''
+        }&category=${this.activeRoute.snapshot.params.name}`
       )
       .subscribe({
         next: (res) => {
           console.log(res);
 
-          this.currentList.emit({ data: res.results, count: res.count, nextPageQuery: res.next });
+          this.currentList.emit({
+            data: res.results,
+            count: res.count,
+            nextPageQuery: res.next,
+          });
           // this.visible = false;
           // console.log(this.currentList);
           //
