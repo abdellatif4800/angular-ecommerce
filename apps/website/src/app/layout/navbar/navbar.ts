@@ -7,12 +7,20 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductsServices } from '@ecommerce-angular/services';
 import { NgStyle } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { LucideAngularModule, ShoppingCart, List, LogOut, Search, User } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  ShoppingCart,
+  List,
+  LogOut,
+  Search,
+  User,
+} from 'lucide-angular';
 import { LoginForm } from '../../components/login-form/login-form';
 
 @Component({
   selector: 'navbar',
   imports: [
+
     LoginForm,
     LucideAngularModule,
     NavbarCheckScroll,

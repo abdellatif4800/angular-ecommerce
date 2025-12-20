@@ -1,15 +1,21 @@
-<footer id="footer" class="footer bg-base-200 text-base-content p-10 lg:p-16 border-t border-base-300">
+<footer
+  id="footer"
+  class="footer bg-base-200 text-base-content p-10 lg:p-16 border-t border-base-300"
+>
   <div class="lg:w-3/4 mx-auto w-full">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
       <!-- Company Info & Newsletter -->
       <aside class="flex flex-col gap-4">
         <h1 class="font-black text-3xl text-primary">LOGO</h1>
         <p class="text-sm opacity-80">
-          Your trusted e-commerce destination for quality products and exceptional service.
+          Your trusted e-commerce destination for quality products and
+          exceptional service.
         </p>
         <fieldset class="w-full">
           <label class="label">
-            <span class="label-text font-semibold">Subscribe to Newsletter</span>
+            <span class="label-text font-semibold"
+              >Subscribe to Newsletter</span
+            >
           </label>
           <div class="join w-full">
             <input
@@ -17,7 +23,9 @@
               placeholder="your@email.com"
               class="input input-bordered join-item w-full field-radius"
             />
-            <button class="btn btn-primary join-item selector-radius">Subscribe</button>
+            <button class="btn btn-primary join-item selector-radius">
+              Subscribe
+            </button>
           </div>
         </fieldset>
       </aside>
@@ -55,13 +63,17 @@
           <h6 class="footer-title text-lg font-bold">Follow Us</h6>
           <div class="flex flex-wrap gap-3">
             @for (logo of socialLogos; track $index; let idx = $index) {
-              <a
-                [href]="logo.link"
-                class="btn btn-circle btn-ghost hover:btn-primary transition-colors duration-300"
-                [attr.aria-label]="'Follow us on ' + logo.link"
-              >
-                <img [src]="logo.image" class="w-6 h-6" [alt]="'Social media icon ' + (idx + 1)" />
-              </a>
+            <a
+              [href]="logo.link"
+              class="btn btn-circle btn-ghost hover:btn-primary transition-colors duration-300"
+              [attr.aria-label]="'Follow us on ' + logo.link"
+            >
+              <img
+                [src]="logo.image"
+                class="w-6 h-6"
+                [alt]="'Social media icon ' + (idx + 1)"
+              />
+            </a>
             }
           </div>
         </div>
@@ -70,9 +82,15 @@
           <h6 class="footer-title text-lg font-bold">Payment Methods</h6>
           <div class="flex flex-wrap gap-3">
             @for (logo of paymentLogos; track $index; let idx = $index) {
-              <div class="bg-base-100 p-2 card-radius shadow-sm hover:shadow-md transition-shadow duration-300">
-                <img [src]="logo" class="h-8 w-auto" [alt]="'Payment method ' + (idx + 1)" />
-              </div>
+            <div
+              class="bg-base-100 p-2 card-radius shadow-sm hover:shadow-md transition-shadow duration-300"
+            >
+              <img
+                [src]="logo"
+                class="h-8 w-auto"
+                [alt]="'Payment method ' + (idx + 1)"
+              />
+            </div>
             }
           </div>
         </div>
@@ -81,7 +99,9 @@
 
     <!-- Copyright -->
     <div class="divider my-6"></div>
-    <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm opacity-70">
+    <div
+      class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm opacity-70"
+    >
       <p>&copy; 2024 E-Commerce Store. All rights reserved.</p>
       <p>Made with ❤️ for our customers</p>
     </div>
