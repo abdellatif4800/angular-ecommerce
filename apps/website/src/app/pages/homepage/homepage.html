@@ -1,37 +1,41 @@
-<div class="flex flex-col items-center w-full gap-8 container-section overflow-visible">
-  <!-- Sub-Navbar Categories -->
-  <div class="w-full overflow-visible">
-    <app-categories-list/>
-  </div>
-
+<div
+  class="flex flex-col items-center w-full  container-section overflow-visible "
+>
   <!-- Main Ads Carousel -->
   <div class="w-full">
     <comp-ads-carousel></comp-ads-carousel>
   </div>
 
   <!-- Brand Logos Section -->
-  <div class="w-full bg-base-200 card-radius p-6 shadow-md">
-    <div class="flex flex-wrap justify-center items-center gap-8 lg:gap-12">
+  <div class="w-full card-radius py-7 shadow-md flex flex-wrap justify-center items-center gap-8 ">
+    <!-- <div class="flex flex-wrap justify-center items-center lg:gap-12"> -->
       @for (brand of brandsLogo; track $index; let idx = $index) {
-        <img [src]="brand" class="h-12 lg:h-16 opacity-70 hover:opacity-100 transition-opacity duration-300" [alt]="'Brand logo ' + (idx + 1)" />
+      <img
+        [src]="brand"
+        class="h-12 lg:h-16 opacity-70 hover:opacity-100 transition-opacity duration-300"
+        [alt]="'Brand logo ' + (idx + 1)"
+      />
       }
-    </div>
+    <!-- </div> -->
   </div>
 
   <!-- Top Rated Products Carousel -->
-  <div class="w-full">
-    <div class="bg-base-100 card-radius p-6 shadow-md">
-      <products-carousel listTitel="Top Rated" [products]="topRatedproducts()"></products-carousel>
+  <div class="w-full shadow-md px-5">
+    <div class="card-radius p-2 ">
+      <app-products-carousel
+        listTitel="Top Rated"
+        [products]="topRatedproducts()"
+      />
     </div>
   </div>
 
   <!-- High Discount Products Carousel -->
-  <div class="w-full">
-    <div class="bg-base-100 card-radius p-6 shadow-md">
-      <products-carousel
+  <div class="w-full shadow-md px-5">
+    <div class="card-radius p-2 ">
+      <app-products-carousel
         listTitel="High Discounted"
         [products]="highDiscountProducts()"
-      ></products-carousel>
+      />
     </div>
   </div>
 </div>

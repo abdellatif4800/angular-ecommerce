@@ -1,9 +1,11 @@
-<div class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 card-radius overflow-hidden group w-full h-full flex flex-col">
+<div
+  class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 card-radius overflow-hidden group w-full h-full flex flex-col"
+>
   <!-- Product Image Section -->
   <figure class="relative w-full h-56 overflow-hidden bg-base-200">
     <a
       [routerLink]="['/product', product()?.productName]"
-      [queryParams]="{ id: product()?._id, category: product()?.subCategoryID, name: product()?.productName }"
+      [queryParams]="{ id: product()?._id, subCategoryID:product()?.subCategoryID,subCategoryName: product()?.subCategoryName, productName: product()?.productName }"
       class="block w-full h-full"
     >
       <img
@@ -13,9 +15,9 @@
       />
     </a>
     @if (product()?.discount !== 0) {
-      <div class="badge badge-primary absolute top-3 right-3 shadow-lg">
-        -{{ product()?.discount }}%
-      </div>
+    <div class="badge badge-primary absolute top-3 right-3 shadow-lg">
+      -{{ product()?.discount }}%
+    </div>
     }
   </figure>
 
@@ -34,14 +36,14 @@
       </h2>
       <div class="rating rating-sm">
         @for (star of [1, 2, 3, 4, 5]; track star) {
-          <input
-            type="radio"
-            [name]="'rating-' + product()?._id"
-            class="mask mask-star-2 bg-warning"
-            [checked]="product()?.rate === star"
-            [disabled]="true"
-            [attr.aria-label]="star + ' stars'"
-          />
+        <input
+          type="radio"
+          [name]="'rating-' + product()?._id"
+          class="mask mask-star-2 bg-warning"
+          [checked]="product()?.rate === star"
+          [disabled]="true"
+          [attr.aria-label]="star + ' stars'"
+        />
         }
       </div>
     </div>
@@ -49,16 +51,17 @@
     <!-- Price Section -->
     <div class="flex items-center gap-2 mt-auto">
       @if (product()?.discount !== 0) {
-        <div class="flex flex-col">
-          <span class="text-xl font-bold text-primary">
-            ${{ priceAfterDiscount(product()?.price ?? 0, product()?.discount ?? 0) }}
-          </span>
-          <span class="text-sm opacity-60 line-through">
-            ${{ product()?.price }}
-          </span>
-        </div>
+      <div class="flex flex-col">
+        <span class="text-xl font-bold text-primary">
+          ${{ priceAfterDiscount(product()?.price ?? 0, product()?.discount ??
+          0) }}
+        </span>
+        <span class="text-sm opacity-60 line-through">
+          ${{ product()?.price }}
+        </span>
+      </div>
       } @else {
-        <span class="text-xl font-bold">${{ product()?.price }}</span>
+      <span class="text-xl font-bold">${{ product()?.price }}</span>
       }
     </div>
 

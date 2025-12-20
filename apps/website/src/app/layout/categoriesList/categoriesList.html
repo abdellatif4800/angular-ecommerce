@@ -1,7 +1,10 @@
-<nav class="w-full bg-base-100 border border-green-500">
-  <div class="lg:w-3/4 md:w-full mx-auto px-4">
+@if(isShown()){
+
+
+<nav class="w-full bg-base-100 shadow-md">
+  <div class="lg:w-3/4 md:w-full mx-auto px-4 ">
     <div
-      class="flex flex-row items-center gap-2 py-3 overflow-x-auto overflow-y-visible"
+      class="flex flex-row items-center h-15 gap-2 py-3 overflow-x-auto overflow-y-visible "
     >
       @if(!showCategories()){
       <div class="" animate.enter="enter-breadcharm">
@@ -9,14 +12,9 @@
         <div class="breadcrumbs text-sm p-4">
           <ul>
             <li>
-              <a routerLink="/" class="flex items-center gap-1">
-                <!-- <lucide-angular [img]="HomeIcon" class="w-4 h-4"></lucide-angular> -->
-                Home
-              </a>
-            </li>
-            <li>
               <button
-                (click)="showCategories.set(true);showCloseCategoriesBtn.set(true)"
+               class='btn btn-primary'
+                    (click)="showCategories.set(true);showCloseCategoriesBtn.set(true)"
               >
                 Categories
               </button>
@@ -87,3 +85,4 @@
     </div>
   </div>
 </nav>
+}

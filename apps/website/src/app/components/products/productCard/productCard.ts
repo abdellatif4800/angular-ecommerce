@@ -24,7 +24,7 @@ export class ProductCard implements OnInit {
   readonly HeartIcon = Heart;
 
   ngOnInit() {
-    console.log(this.product())
+    // console.log(this.product());
   }
 
   product = input<{
@@ -36,6 +36,7 @@ export class ProductCard implements OnInit {
     stock: number;
     imageUrl: string;
     subCategoryID: string;
+    subCategoryName: string;
   }>();
 
   stockStatus(stock: number): string {
@@ -65,8 +66,7 @@ export class ProductCard implements OnInit {
   addItemToCart() {
     this.cartService.addItemToCart(this.product()!._id).subscribe({
       next: (res) => {
-        console.log(res);
-
+        // console.log(res);
       },
     });
   }

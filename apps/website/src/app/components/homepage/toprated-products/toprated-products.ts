@@ -1,7 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { ProductCard } from '../../products/productCard/productCard';
 import { NgStyle } from '@angular/common';
-import { LucideAngularModule, ArrowBigRight, ArrowBigLeft } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  ArrowBigRight,
+  ArrowBigLeft,
+} from 'lucide-angular';
 
 @Component({
   selector: 'toprated-products',
@@ -9,4 +13,4 @@ import { LucideAngularModule, ArrowBigRight, ArrowBigLeft } from 'lucide-angular
   templateUrl: './toprated-products.html',
   styleUrl: './toprated-products.css',
 })
-export class TopratedProducts { }
+export class TopratedProducts {}

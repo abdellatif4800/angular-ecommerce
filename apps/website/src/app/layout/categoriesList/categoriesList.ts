@@ -35,6 +35,8 @@ export class CategoriesList implements OnInit {
   readonly ArrowBigRightDash = ArrowBigRightDash;
   readonly chevronDown = ChevronDown;
 
+  isShown = signal<boolean>(false)
+
   currentRoute = signal<string>('');
 
   subCategoryName = signal<string>('');
@@ -45,6 +47,8 @@ export class CategoriesList implements OnInit {
   productName = signal<string>('');
 
   showCloseCategoriesBtn = signal<boolean>(false);
+
+
 
   ngOnInit() {
     this.productService.getCategories().subscribe({
@@ -72,15 +76,29 @@ export class CategoriesList implements OnInit {
         );
 
         if (event.url === '/') {
+          this.isShown.set(true)
           this.showCategories.set(true);
           this.showCloseCategoriesBtn.set(false);
         }
+
         if (
-          this.currentRoute().includes('subcategory') ||
-          this.currentRoute().includes('product')
+          event.url.includes('subcategory') ||
+          event.url.includes('product')
         ) {
+          this.isShown.set(true)
+
           this.showCategories.set(false);
         }
+
+        if (
+          event.url.includes('userLists')
+        ) {
+          this.isShown.set(false)
+
+        }
+
+
+
       });
 
     this.subCategoryName.set(
@@ -100,12 +118,23 @@ export class CategoriesList implements OnInit {
       this.currentRoute().includes('subcategory') ||
       this.currentRoute().includes('product')
     ) {
+      this.isShown.set(true)
+
       this.showCategories.set(false);
     }
     if (this.currentRoute() === '/') {
+      this.isShown.set(true)
+
       this.showCategories.set(true);
       this.showCloseCategoriesBtn.set(false);
     }
+    if (
+      this.currentRoute().includes('userLists')
+    ) {
+      this.isShown.set(false)
+
+    }
+
     console.log(this.currentRoute() === '/');
   }
 

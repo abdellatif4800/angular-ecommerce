@@ -1,16 +1,27 @@
-import { NgStyle, NgClass } from '@angular/common';
-import { Component, signal } from '@angular/core';
-import { LucideAngularModule, CircleChevronRight, CircleChevronLeft } from 'lucide-angular';
+import { NgClass, NgStyle } from '@angular/common';
+import { Component, signal, OnInit, OnDestroy, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import {
+  LucideAngularModule,
+  CircleChevronRight,
+  CircleChevronLeft,
+} from 'lucide-angular';
 
 @Component({
   selector: 'comp-ads-carousel',
+  standalone: true,
   imports: [NgStyle, NgClass, LucideAngularModule],
   templateUrl: './adsCarousel.html',
-  styleUrl: './adsCarousel.css',
+  // Removed styleUrl as Tailwind classes are sufficient,
+  // but keep it if you have custom CSS.
 })
-export class AdsCarousel {
+export class AdsCarousel implements OnInit, OnDestroy {
   readonly CircleChevronRight = CircleChevronRight;
   readonly CircleChevronLeft = CircleChevronLeft;
+  private router = inject(Router);
+
+  // Auto-play interval reference
+  private autoPlayInterval: any;
 
   ads = [
     {
@@ -18,88 +29,80 @@ export class AdsCarousel {
       ad_text: 'Ad 1',
       adContent: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit sed.',
       ad_img: 'ads/ad1.png',
+      link: '/products/list' // Added link
     },
     {
       bg_color: 'red',
       ad_text: 'Ad 2',
       adContent: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit sed.',
       ad_img: 'ads/ad2.png',
+      link: '/products/electronics' // Added link
     },
     {
       bg_color: 'gray',
       ad_text: 'Ad 3',
       adContent: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit sed.',
       ad_img: 'ads/ad3.png',
+      link: '/products/clothing' // Added link
     },
     {
       bg_color: 'green',
       ad_text: 'Ad 4',
       adContent: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit sed.',
       ad_img: 'ads/ad4.png',
+      link: '/products/sale' // Added link
     },
   ];
 
   currentAdIndex = signal(0);
-  adOpacity = signal('black');
-  textTranslateAnimation = signal('0px');
 
-  showImage = true;
-
-  imageStyles = () => ({
-    opacity: this.adOpacity(),
-  });
-
-  textStyles = () => ({
-    translate: this.textTranslateAnimation(),
-    opacity: this.adOpacity(),
-  });
-
+  // Manual navigation via dots
   goToAd(index: number) {
-    this.adOpacity.set('0');
-    // this.textTranslateAnimation.set('-100px');
-
-    setTimeout(() => {
-      this.adOpacity.set('1');
-      // this.textTranslateAnimation.set('0px');
-      this.currentAdIndex.set(index);
-    }, 1000);
+    this.resetAutoPlay();
+    this.currentAdIndex.set(index);
   }
 
-  arrowBtns(direction: string) {
-    this.adOpacity.set('0');
-    this.textTranslateAnimation.set('-100px');
+  navigateToProduct(url: string | undefined) {
+    if (url) {
+      this.router.navigate([url]);
+    } else {
+      this.router.navigate(['/products']); // Fallback
+    }
+  }
+  nextAd() {
+    this.resetAutoPlay();
+    this.currentAdIndex.update((current) =>
+      current === this.ads.length - 1 ? 0 : current + 1
+    );
+  }
 
-    setTimeout(() => {
-      this.adOpacity.set('1');
-      this.textTranslateAnimation.set('0px');
-      if (direction === 'right') {
-        if (this.currentAdIndex() === this.ads.length - 1) {
-          this.currentAdIndex.set(0);
-        } else {
-          this.currentAdIndex.update((current) => current + 1);
-        }
-      }
-      if (direction === 'left') {
-        if (this.currentAdIndex() === 0) {
-          this.currentAdIndex.set(this.ads.length - 1);
-        } else {
-          this.currentAdIndex.update((current) => current - 1);
-        }
-      }
-    }, 1000);
+  prevAd() {
+    this.resetAutoPlay();
+    this.currentAdIndex.update((current) =>
+      current === 0 ? this.ads.length - 1 : current - 1
+    );
+  }
+
+  private resetAutoPlay() {
+    clearInterval(this.autoPlayInterval);
+    this.startAutoPlay();
+  }
+
+  private startAutoPlay() {
+    this.autoPlayInterval = setInterval(() => {
+      this.currentAdIndex.update((current) =>
+        current === this.ads.length - 1 ? 0 : current + 1
+      );
+    }, 1500); // 4 seconds per slide
   }
 
   ngOnInit() {
-    // setInterval(() => {
-    //   setTimeout(() => {
-    //     if (this.currentAdIndex() >= this.ads.length - 1) {
-    //       this.currentAdIndex.set(0)
-    //     } else {
-    //       this.currentAdIndex.update(n => n + 1);
-    //     }
-    //     this.showImage = true;
-    //   }, 500);
-    //   // console.log(this.currentAdIndex());
-    // }, 2000);
+    this.startAutoPlay();
+  }
+
+  ngOnDestroy() {
+    if (this.autoPlayInterval) {
+      clearInterval(this.autoPlayInterval);
+    }
   }
 }

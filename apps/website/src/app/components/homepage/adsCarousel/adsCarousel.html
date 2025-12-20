@@ -1,32 +1,65 @@
-<div class="relative w-full h-96 bg-base-200 card-radius overflow-hidden shadow-lg">
-  <div class="carousel w-full h-full">
+<div class="relative w-full h-96 bg-base-200 card-radius overflow-hidden shadow-lg group">
+
+  <div class="relative w-full h-full">
     @for (ad of ads; track $index; let idx = $index) {
       <div
-        [id]="'slide' + idx"
-        class="carousel-item relative w-full h-full"
-        [ngClass]="{ 'opacity-0 absolute': currentAdIndex() !== idx, 'opacity-100': currentAdIndex() === idx }"
+        class="absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out"
+        [ngClass]="{
+          'opacity-100 z-10': currentAdIndex() === idx,
+          'opacity-0 z-0 pointer-events-none': currentAdIndex() !== idx
+        }"
       >
-        <img
-          [src]="ad.ad_img"
-          [alt]="ad.ad_text"
-          class="w-full h-full object-cover transition-opacity duration-1000"
-        />
+        <div class="flex h-full w-full">
+          <div class="flex-[2] flex flex-col items-center justify-center bg-base-200 p-8">
+            <div class="text-base-content text-xl font-bold text-center space-y-4 mb-6">
+              <h2 class="text-4xl text-primary">{{ ad.ad_text }}</h2>
+              <p class="font-normal opacity-80 text-base">{{ ad.adContent }}</p>
+            </div>
+
+            <button
+              class="btn btn-primary px-8 pointer-events-auto shadow-md hover:scale-105 transition-transform"
+              (click)="navigateToProduct(ad.link)"
+            >
+              Check it out
+            </button>
+
+          </div>
+
+          <div class="flex-1 h-full ">
+            <img
+              [src]="ad.ad_img"
+              [alt]="ad.ad_text"
+              class="w-full h-full object-contain "
+            />
+          </div>
+        </div>
       </div>
     }
   </div>
-  
-  <!-- Progress Indicator / Slider Controls -->
+
+  <button
+    (click)="prevAd()"
+    class="absolute left-4 top-1/2 -translate-y-1/2 z-20 btn btn-circle btn-ghost bg-base-100/50 hover:bg-base-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+  >
+    <lucide-angular [img]="CircleChevronLeft" class="w-8 h-8"></lucide-angular>
+  </button>
+
+  <button
+    (click)="nextAd()"
+    class="absolute right-4 top-1/2 -translate-y-1/2 z-20 btn btn-circle btn-ghost bg-base-100/50 hover:bg-base-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+  >
+    <lucide-angular [img]="CircleChevronRight" class="w-8 h-8"></lucide-angular>
+  </button>
+
   <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20 flex gap-2">
     @for (ad of ads; track $index; let idx = $index) {
       <button
-        [ngClass]="{
-          'bg-primary': currentAdIndex() === idx,
-          'bg-base-300': currentAdIndex() !== idx
-        }"
-        class="h-2 rounded-full transition-all duration-300 selector-radius"
-        [style.width]="currentAdIndex() === idx ? '2rem' : '0.5rem'"
         (click)="goToAd(idx)"
-        [attr.aria-label]="'Go to slide ' + (idx + 1)"
+        class="h-2 rounded-full transition-all duration-300 cursor-pointer shadow-sm"
+        [ngClass]="{
+            'bg-primary w-8': currentAdIndex() === idx,
+            'bg-base-content/30 w-2 hover:bg-base-content/50': currentAdIndex() !== idx
+          }"
       ></button>
     }
   </div>
