@@ -1,50 +1,72 @@
 <button class="btn btn-secondary" (click)="openModal()">Add Product</button>
 
 <dialog #newProductModal class="modal">
-	<div class="modal-box border w-200 h-120 z-10">
-		<h3 class="text-lg font-bold">Create New Product</h3>
-		<!-- <div class="modal-action "> -->
-		<form [formGroup]="productForm" (ngSubmit)="submitForm()" class='w-full '>
-			<div>
-				<label>Product Name:</label>
-				<input type="text" formControlName="productName" class="input input-bordered w-full">
-			</div>
-
-			<div>
-				<label>Price:</label>
-				<input type="number" formControlName="price" class="input input-bordered w-full">
-			</div>
-
-			<div>
-				<label>Stock:</label>
-				<input type="number" formControlName="stock" class="input input-bordered w-full">
-			</div>
-
-			<div>
-				<label>Sub Category ID:</label>
-				<select formControlName='subCategoryID' class='border bg-white text-black font-bold' id="dino-select">
-					@for(cat of categoriesList();track $index){
-					<optgroup label={{cat.category}}>
-						@for(sub of cat.subCategoriesList;track $index){
-						<option [value]="sub._id">{{sub.subCategory}}</option>
-						}
-					</optgroup>
-					}
-				</select>
-
-				<!-- <input type="text" formControlName="subCategoryID" class="input input-bordered w-full"> -->
-			</div>
-
+  <div class="modal-box border w-200 h-120 z-10">
+    <h3 class="text-lg font-bold">Create New Product</h3>
+    <!-- <div class="modal-action "> -->
+    <form [formGroup]="productForm" (ngSubmit)="submitForm()" class="w-full">
       <div>
-         Image: <input type="file" class="file-input file-input-neutral" (change)="onFileSelected($event)" #fileInput/>
+        <label>Product Name:</label>
+        <input
+          type="text"
+          formControlName="productName"
+          class="input input-bordered w-full"
+        />
       </div>
 
-			<div class="modal-action">
-				<!-- Submit button will close the modal if valid -->
-				<button type="submit" class="btn">Submit</button>
-				<button type="button" class="btn" (click)="closeModal()">Close</button>
-			</div>
-		</form>
-	</div>
-	<!-- </div> -->
+      <div>
+        <label>Price:</label>
+        <input
+          type="number"
+          formControlName="price"
+          class="input input-bordered w-full"
+        />
+      </div>
+
+      <div>
+        <label>Stock:</label>
+        <input
+          type="number"
+          formControlName="stock"
+          class="input input-bordered w-full"
+        />
+      </div>
+
+      <div>
+        <label>Sub Category ID:</label>
+        <select
+          formControlName="subCategoryID"
+          class="border bg-white text-black font-bold"
+          id="dino-select"
+        >
+          @for(cat of categoriesList();track $index){
+          <optgroup label="{{cat.category}}">
+            @for(sub of cat.subCategoriesList;track $index){
+            <option [value]="sub._id">{{sub.subCategory}}</option>
+            }
+          </optgroup>
+          }
+        </select>
+
+        <!-- <input type="text" formControlName="subCategoryID" class="input input-bordered w-full"> -->
+      </div>
+
+      <div>
+        Image:
+        <input
+          type="file"
+          class="file-input file-input-neutral"
+          (change)="onFileSelected($event)"
+          #fileInput
+        />
+      </div>
+
+      <div class="modal-action">
+        <!-- Submit button will close the modal if valid -->
+        <button type="submit" class="btn">Submit</button>
+        <button type="button" class="btn" (click)="closeModal()">Close</button>
+      </div>
+    </form>
+  </div>
+  <!-- </div> -->
 </dialog>

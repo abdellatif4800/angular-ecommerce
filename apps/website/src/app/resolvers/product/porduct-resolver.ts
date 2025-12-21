@@ -14,9 +14,11 @@ export const ProductsListResolver: ResolveFn<any> = (route, state) => {
   const service = inject(ProductsServices);
   const subcategoryId: string = route.paramMap.get('id') ?? '';
 
-  const data: any = service.getListOfProducts(`?subcategoryId=${subcategoryId}`);
+  const data: any = service.getListOfProducts(
+    `?subcategoryId=${subcategoryId}`
+  );
 
-  return data
+  return data;
 };
 export const SearchProductsListResolver: ResolveFn<any> = (route, state) => {
   const service = inject(ProductsServices);

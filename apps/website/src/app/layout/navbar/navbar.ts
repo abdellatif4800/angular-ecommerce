@@ -1,4 +1,4 @@
-import { Component, signal, input, inject, OnInit } from '@angular/core';
+import { Component, signal, input, inject, OnInit, output } from '@angular/core';
 import { NavbarCheckScroll } from '../../directives/navbarCheckScroll/navbarCheckScroll';
 import { Router, RouterLink } from '@angular/router';
 import { AuthSerivce } from '@ecommerce-angular/services';
@@ -14,6 +14,7 @@ import {
   LogOut,
   Search,
   User,
+  Sun
 } from 'lucide-angular';
 import { LoginForm } from '../../components/login-form/login-form';
 
@@ -44,6 +45,14 @@ export class Navbar implements OnInit {
   readonly LogoutIcon = LogOut;
   readonly SearchIcon = Search;
   readonly UserIcon = User;
+  readonly SunIcon = Sun;
+
+
+  changeTheme = output<any>()
+
+  handelChangeTheme() {
+    this.changeTheme.emit('change')
+  }
 
   username = this.authService.userData?.username;
 

@@ -15,16 +15,15 @@ import { CartServices } from '@ecommerce-angular/services';
 })
 export class CartAndOrderlist implements OnInit {
   private activeRoute: any = inject(ActivatedRoute);
-  private cartService = inject(CartServices)
+  private cartService = inject(CartServices);
 
-  currentTab = this.cartService.currentListTab
+  currentTab = this.cartService.currentListTab;
 
   changeTab(targetList: number) {
-    this.cartService.currentListTab.set(targetList)
+    this.cartService.currentListTab.set(targetList);
   }
 
   ngOnInit() {
-
     if (this.activeRoute.snapshot.params.listType === 'cart') {
       this.currentTab.set(1);
     }

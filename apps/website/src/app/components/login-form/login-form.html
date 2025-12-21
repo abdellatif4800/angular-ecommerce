@@ -4,7 +4,9 @@
   <div class="modal-box w-11/12 max-w-5xl">
     <div class="modal-action flex flex-col gap-2">
       <form method="dialog">
-        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+          ✕
+        </button>
       </form>
       <div class="grid grid-cols-2 gap-2">
         <button
@@ -27,95 +29,95 @@
 
       <div class="w-full rounded-2xl bg-base-200 shadow-md m-auto mt-3">
         @if (currentForm() === 'login') {
-          <form
-            class="w-full p-2 flex flex-col gap-4"
-            [formGroup]="loginForm"
-            (ngSubmit)="onLoginSubmit()"
-          >
-            <h1 class="w-full flex justify-center font-bold text-3xl">Login</h1>
+        <form
+          class="w-full p-2 flex flex-col gap-4"
+          [formGroup]="loginForm"
+          (ngSubmit)="onLoginSubmit()"
+        >
+          <h1 class="w-full flex justify-center font-bold text-3xl">Login</h1>
 
-            <label class="floating-label">
-              <span>Email</span>
-              <input
-                id="email"
-                type="text"
-                placeholder="Email"
-                class="w-full input input-md"
-                formControlName="email"
-              />
-            </label>
+          <label class="floating-label">
+            <span>Email</span>
+            <input
+              id="email"
+              type="text"
+              placeholder="Email"
+              class="w-full input input-md"
+              formControlName="email"
+            />
+          </label>
 
-            <label class="floating-label">
-              <span>Password</span>
-              <input
-                type="text"
-                class="w-full input input-md"
-                placeholder="Password"
-                id="password"
-                formControlName="password"
-              />
-            </label>
+          <label class="floating-label">
+            <span>Password</span>
+            <input
+              type="text"
+              class="w-full input input-md"
+              placeholder="Password"
+              id="password"
+              formControlName="password"
+            />
+          </label>
 
-            <button class="btn btn-success" type="submit">Login</button>
-          </form>
-        }
+          <button class="btn btn-success" type="submit">Login</button>
+        </form>
+        } @if (currentForm() === 'register') {
+        <form
+          class="w-full p-2 flex flex-col gap-4"
+          [formGroup]="registerForm"
+          (ngSubmit)="onRegister()"
+        >
+          <h1 class="w-full flex justify-center font-bold text-3xl">
+            Register
+          </h1>
+          <label class="floating-label">
+            <span>Username</span>
+            <input
+              id="username"
+              placeholder="Username"
+              type="text"
+              class="w-full input input-md"
+              formControlName="username"
+            />
+          </label>
 
-        @if (currentForm() === 'register') {
-          <form
-            class="w-full p-2 flex flex-col gap-4"
-            [formGroup]="registerForm"
-            (ngSubmit)="onRegister()"
-          >
-            <h1 class="w-full flex justify-center font-bold text-3xl">Register</h1>
-            <label class="floating-label">
-              <span>Username</span>
-              <input
-                id="username"
-                placeholder="Username"
-                type="text"
-                class="w-full input input-md"
-                formControlName="username"
-              />
-            </label>
+          <label class="floating-label">
+            <span>Password</span>
+            <input
+              type="text"
+              class="w-full input input-md"
+              placeholder="Password"
+              id="password"
+              formControlName="password"
+            />
+          </label>
+          <label class="floating-label">
+            <span>Password</span>
+            <input
+              type="text"
+              class="w-full input input-md"
+              placeholder="Repeat Password"
+              id="rePassword"
+              formControlName="rePassword"
+            />
+          </label>
 
-            <label class="floating-label">
-              <span>Password</span>
-              <input
-                type="text"
-                class="w-full input input-md"
-                placeholder="Password"
-                id="password"
-                formControlName="password"
-              />
-            </label>
-            <label class="floating-label">
-              <span>Password</span>
-              <input
-                type="text"
-                class="w-full input input-md"
-                placeholder="Repeat Password"
-                id="rePassword"
-                formControlName="rePassword"
-              />
-            </label>
+          <label class="floating-label">
+            <span>Email</span>
+            <input
+              type="text"
+              class="w-full input input-md"
+              placeholder="Email"
+              id="email"
+              formControlName="email"
+              [ngClass]="errMsg() === 'email duplicated' ? 'border border-red-500' : ''"
+            />
+          </label>
+          @if(errMsg()==="email duplicated"){
+          <span>This Email Used Before</span>
+          }
 
-            <label class="floating-label">
-              <span>Email</span>
-              <input
-                type="text"
-                class="w-full input input-md"
-                placeholder="Email"
-                id="email"
-                formControlName="email"
-                [ngClass]="errMsg() === 'email duplicated' ? 'border border-red-500' : ''"
-              />
-            </label>
-            @if(errMsg()==="email duplicated"){
-              <span>This Email Used Before</span>
-            }
-
-            <button class="btn btn-success" type="submit">Register</button>
-          </form>
+          <button class="btn btn-success" type="submit">Register</button>
+        </form>
         }
       </div>
       <!-- </p-dialog> -->

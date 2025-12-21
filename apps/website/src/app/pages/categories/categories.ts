@@ -16,13 +16,12 @@ export class Categories implements OnInit {
   currentListName = signal<string>('categories');
 
   changeList(id: string) {
-
     this.productService.getSubCategories(id).subscribe({
       next: (res) => {
         this.currentList.set(res);
-        this.currentListName.set('subCategories')
-      }
-    })
+        this.currentListName.set('subCategories');
+      },
+    });
   }
 
   ngOnInit() {

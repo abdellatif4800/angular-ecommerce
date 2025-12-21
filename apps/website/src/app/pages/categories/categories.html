@@ -2,24 +2,23 @@
   <h1 class="text-center mb-10 font-bold text-5xl">Categories</h1>
   <div class="grid grid-cols-4 gap-3">
     @for (cat of currentList(); track $index; let idx = $index) {
-     @if(currentListName()==='categories'){
-      <button
-          (click)='changeList(cat._id)'
-          animate.enter="enter-animation"
-          class="bg-gray-400 hover:bg-gray-500 hover:text-white transition-all duration-500 cursor-pointer rounded-md shadow-2xl h-12 font-bold "
-        >
-          <!-- [ngClass]="currentListName()==='subCategories'? 'opacity-50 bg-red-500':'opacity-100 bg-green-500'" -->
-        {{ cat.categoty | uppercase }}
-      </button>
-      }
-      @if(currentListName()==='subCategories'){
-          <button
-            [routerLink]="['/subcategory',cat.subCategotzy]"
-            animate.enter="enter-animation"
-            class="bg-gray-400 hover:bg-gray-500 hover:text-white transition-all duration-500 cursor-pointer rounded-md shadow-2xl h-12 font-bold ">
-            {{ cat.subCategotzy| uppercase }}
-         </button>
-      }
-    }
+    @if(currentListName()==='categories'){
+    <button
+      (click)="changeList(cat._id)"
+      animate.enter="enter-animation"
+      class="bg-gray-400 hover:bg-gray-500 hover:text-white transition-all duration-500 cursor-pointer rounded-md shadow-2xl h-12 font-bold"
+    >
+      <!-- [ngClass]="currentListName()==='subCategories'? 'opacity-50 bg-red-500':'opacity-100 bg-green-500'" -->
+      {{ cat.categoty | uppercase }}
+    </button>
+    } @if(currentListName()==='subCategories'){
+    <button
+      [routerLink]="['/subcategory',cat.subCategotzy]"
+      animate.enter="enter-animation"
+      class="bg-gray-400 hover:bg-gray-500 hover:text-white transition-all duration-500 cursor-pointer rounded-md shadow-2xl h-12 font-bold"
+    >
+      {{ cat.subCategotzy| uppercase }}
+    </button>
+    } }
   </div>
 </div>

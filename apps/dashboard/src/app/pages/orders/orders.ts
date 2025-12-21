@@ -7,7 +7,15 @@ import { Check, LucideAngularModule, SquarePen } from 'lucide-angular';
 
 @Component({
   selector: 'dashboard-orders',
-  imports: [FormsModule, NgClass, CurrencyPipe, DatePipe, PercentPipe, LucideAngularModule, ReactiveFormsModule],
+  imports: [
+    FormsModule,
+    NgClass,
+    CurrencyPipe,
+    DatePipe,
+    PercentPipe,
+    LucideAngularModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './orders.html',
   styleUrl: './orders.css',
 })
@@ -16,37 +24,35 @@ export class Orders implements OnInit {
   private activeRoute: any = inject(ActivatedRoute);
 
   ngOnInit(): void {
-    this.loadOrders("pending")
+    this.loadOrders('pending');
   }
   currentList = signal<any[]>([]);
 
   currentStatus = signal<string>('pending');
 
-
-
   loadOrders(status: string) {
     this.orderService.listOrdersForAdmin(`?status=${status}`).subscribe({
       next: (data) => {
-        this.currentList.set(data)
-      }
-    })
-
+        this.currentList.set(data);
+      },
+    });
   }
 
   updateOrder(orderID: string, fieldToUpdate: string, newValue: string) {
-    this.orderService.updateOrderForAdmin(orderID, fieldToUpdate, newValue).subscribe({
-      next: (data) => {
-        if (fieldToUpdate === 'status') {
-          this.loadOrders(this.currentStatus())
-        }
-      }
-    })
-
+    this.orderService
+      .updateOrderForAdmin(orderID, fieldToUpdate, newValue)
+      .subscribe({
+        next: (data) => {
+          if (fieldToUpdate === 'status') {
+            this.loadOrders(this.currentStatus());
+          }
+        },
+      });
   }
 
   changeStatus(status: string) {
     this.currentStatus.set(status);
-    this.loadOrders(status)
+    this.loadOrders(status);
   }
 
   statusBadgeColor(status: string) {
@@ -67,5 +73,4 @@ export class Orders implements OnInit {
     }
     return '';
   }
-
 }

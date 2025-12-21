@@ -10,5 +10,4 @@ import { Layout } from './layout/layout/layout';
 })
 export class App {
   protected title = 'website';
-
 }

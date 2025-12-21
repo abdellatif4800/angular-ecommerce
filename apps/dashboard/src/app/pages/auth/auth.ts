@@ -1,15 +1,19 @@
 import { NgClass } from '@angular/common';
-import { Component, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  OnInit,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthSerivce } from '@ecommerce-angular/services';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'dashboard-auth',
-  imports: [
-    ReactiveFormsModule,
-    NgClass,
-  ],
+  imports: [ReactiveFormsModule, NgClass],
   templateUrl: './auth.html',
   styleUrl: './auth.css',
 })
@@ -18,7 +22,7 @@ export class Auth implements OnInit {
   private router = inject(Router);
 
   ngOnInit() {
-    console.log(this.authService.prop1)
+    console.log(this.authService.prop1);
   }
 
   loginForm = new FormGroup({
@@ -47,7 +51,7 @@ export class Auth implements OnInit {
   }
 
   currentForm = signal<string>('register');
-  errMsg = signal<string>('')
+  errMsg = signal<string>('');
 
   onLoginSubmit() {
     this.authService.login(this.loginForm.value).subscribe((res) => {
@@ -63,7 +67,7 @@ export class Auth implements OnInit {
     this.authService.regster(this.registerForm.value).subscribe({
       next: (res) => {
         if (res === 'email duplicated') {
-          this.errMsg.set("email duplicated")
+          this.errMsg.set('email duplicated');
         } else if (res) {
           if (this.authService.redirectUrl()) {
             this.router.navigateByUrl(`/${this.authService.redirectUrl()}`);
@@ -72,9 +76,8 @@ export class Auth implements OnInit {
         }
       },
       error: (res: any) => {
-        this.errMsg.set(res)
-      }
+        this.errMsg.set(res);
+      },
     });
   }
-
 }

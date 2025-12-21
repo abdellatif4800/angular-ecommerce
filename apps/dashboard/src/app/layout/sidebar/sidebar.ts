@@ -9,9 +9,8 @@ import { LucideAngularModule, User, Shirt, House, List } from 'lucide-angular';
   styleUrl: './sidebar.css',
 })
 export class Sidebar {
-  readonly shirtIcon = Shirt
-  readonly homeIcon = House
-  readonly ordersIcon = List
-  readonly usersIcon = User
-
+  readonly shirtIcon = Shirt;
+  readonly homeIcon = House;
+  readonly ordersIcon = List;
+  readonly usersIcon = User;
 }

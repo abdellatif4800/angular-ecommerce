@@ -9,16 +9,15 @@ import { Users } from './pages/users/users';
 
 export const appRoutes: Route[] = [
   {
-    path: '', component: Layout,
+    path: '',
+    component: Layout,
     // canActivate: [adminAuthGuard],
     children: [
-
       { path: '', component: Homepage },
       { path: 'products', component: Products },
       { path: 'orders', component: Orders },
       { path: 'users', component: Users },
     ],
-
   },
-  { path: 'auth', component: Auth }
+  { path: 'auth', component: Auth },
 ];

@@ -1,5 +1,12 @@
 import { NgClass } from '@angular/common';
-import { Component, ElementRef, inject, signal, ViewChild, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  signal,
+  ViewChild,
+  OnInit,
+} from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -7,10 +14,7 @@ import { AuthSerivce } from '@ecommerce-angular/services';
 
 @Component({
   selector: 'app-login-form',
-  imports: [
-    ReactiveFormsModule,
-    NgClass,
-  ],
+  imports: [ReactiveFormsModule, NgClass],
   templateUrl: './login-form.html',
   styleUrl: './login-form.css',
 })
@@ -19,7 +23,7 @@ export class LoginForm implements OnInit {
   private router = inject(Router);
 
   ngOnInit() {
-    console.log(this.authService.prop1)
+    console.log(this.authService.prop1);
   }
 
   loginForm = new FormGroup({
@@ -49,7 +53,7 @@ export class LoginForm implements OnInit {
   }
 
   currentForm = signal<string>('register');
-  errMsg = signal<string>('')
+  errMsg = signal<string>('');
 
   onLoginSubmit() {
     this.authService.login(this.loginForm.value).subscribe((res) => {
@@ -66,7 +70,7 @@ export class LoginForm implements OnInit {
     this.authService.regster(this.registerForm.value).subscribe({
       next: (res) => {
         if (res === 'email duplicated') {
-          this.errMsg.set("email duplicated")
+          this.errMsg.set('email duplicated');
         } else if (res) {
           if (this.authService.redirectUrl()) {
             this.router.navigateByUrl(`/${this.authService.redirectUrl()}`);
@@ -75,8 +79,8 @@ export class LoginForm implements OnInit {
         }
       },
       error: (res: any) => {
-        this.errMsg.set(res)
-      }
+        this.errMsg.set(res);
+      },
     });
   }
 }

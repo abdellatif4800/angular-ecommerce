@@ -1,4 +1,12 @@
-import { Component, DestroyRef, effect, inject, OnInit, signal, viewChild } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  effect,
+  inject,
+  OnInit,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { Navbar } from '../navbar/navbar';
 import {
   ActivatedRoute,
@@ -17,6 +25,4 @@ import { Sidebar } from '../sidebar/sidebar';
   templateUrl: './layout.html',
   styleUrl: './layout.css',
 })
-export class Layout {
-
-}
+export class Layout {}

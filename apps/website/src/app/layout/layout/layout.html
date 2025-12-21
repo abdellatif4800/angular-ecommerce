@@ -1,7 +1,7 @@
-<div data-theme="cmyk"
+<div [attr.data-theme]="currentTheme()"
      class="w-full flex flex-col justify-between min-h-screen bg-base-100"
 >
-	<navbar></navbar>
+	<navbar (changeTheme)='handelChangeTheme($event)'></navbar>
 
 	<div class="z-20 w-full mt-16 overflow-visible">
 		<app-categories-list/>

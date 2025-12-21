@@ -1,137 +1,157 @@
 <div class="flex flex-col gap-6">
-	<!-- Status Filter Buttons -->
-	<div class="flex flex-wrap gap-3 justify-center">
-		<button
-			class="btn selector-radius"
-			[ngClass]="currentStatus() === 'pending' ? 'btn-primary' : 'btn-outline btn-neutral'"
-			(click)="changeStatus('pending')"
-		>
-			Pending
-		</button>
-		<button
-			class="btn selector-radius"
-			[ngClass]="currentStatus() === 'processing' ? 'btn-primary' : 'btn-outline btn-neutral'"
-			(click)="changeStatus('processing')"
-		>
-			Processing
-		</button>
-		<button
-			class="btn selector-radius"
-			[ngClass]="currentStatus() === 'shipped' ? 'btn-primary' : 'btn-outline btn-neutral'"
-			(click)="changeStatus('shipped')"
-		>
-			Shipped
-		</button>
-		<button
-			class="btn selector-radius"
-			[ngClass]="currentStatus() === 'delivered' ? 'btn-primary' : 'btn-outline btn-neutral'"
-			(click)="changeStatus('delivered')"
-		>
-			Delivered
-		</button>
-		<button
-			class="btn selector-radius"
-			[ngClass]="currentStatus() === 'canceld' ? 'btn-primary' : 'btn-outline btn-neutral'"
-			(click)="changeStatus('cancelld')"
-		>
-			Cancelled
-		</button>
-	</div>
+  <!-- Status Filter Buttons -->
+  <div class="flex flex-wrap gap-3 justify-center">
+    <button
+      class="btn selector-radius"
+      [ngClass]="currentStatus() === 'pending' ? 'btn-primary' : 'btn-outline btn-neutral'"
+      (click)="changeStatus('pending')"
+    >
+      Pending
+    </button>
+    <button
+      class="btn selector-radius"
+      [ngClass]="currentStatus() === 'processing' ? 'btn-primary' : 'btn-outline btn-neutral'"
+      (click)="changeStatus('processing')"
+    >
+      Processing
+    </button>
+    <button
+      class="btn selector-radius"
+      [ngClass]="currentStatus() === 'shipped' ? 'btn-primary' : 'btn-outline btn-neutral'"
+      (click)="changeStatus('shipped')"
+    >
+      Shipped
+    </button>
+    <button
+      class="btn selector-radius"
+      [ngClass]="currentStatus() === 'delivered' ? 'btn-primary' : 'btn-outline btn-neutral'"
+      (click)="changeStatus('delivered')"
+    >
+      Delivered
+    </button>
+    <button
+      class="btn selector-radius"
+      [ngClass]="currentStatus() === 'canceld' ? 'btn-primary' : 'btn-outline btn-neutral'"
+      (click)="changeStatus('cancelld')"
+    >
+      Cancelled
+    </button>
+  </div>
 
-	<!-- Orders List -->
-	@if (currentList().length !== 0) {
-		<div class="flex flex-col gap-6">
-			@for (order of currentList(); track $index) {
-				<div class="card bg-base-100 shadow-lg card-radius overflow-hidden">
-					<div class="card-body p-6">
-						<!-- Order Header -->
-						<div class="flex flex-col lg:flex-row justify-between items-start gap-4 mb-4">
-							<div class="flex-1">
-								<div class="flex items-center gap-3 mb-2">
-									<h2 class="text-xl font-bold">Order #{{ order._id.slice(-8) }}</h2>
-									<div class="badge badge-lg" [ngClass]="statusBadgeColor(order.shipping_status)">
-										{{ order.status }}
-									</div>
-								</div>
-								<div class="flex flex-wrap gap-4 text-sm opacity-70">
-									<div>
-										<span class="font-semibold">Payment:</span>
-										<span class="ml-1">{{ order.paymentMethod }}</span>
-									</div>
-									<div>
-										<span class="font-semibold">Created:</span>
-										<span class="ml-1">{{ order.createdAt | date: 'short' }}</span>
-									</div>
-									@if (order.created_at) {
-										<div>
-											<span class="font-semibold">Arrives:</span>
-											<span class="ml-1 text-success">{{ order.created_at | date: 'short' }}</span>
-										</div>
-									}
-								</div>
-							</div>
-							<div class="flex flex-col items-end gap-3">
-								<div class="text-right">
-									<p class="text-sm opacity-70">Total Amount</p>
-									<p class="text-2xl font-bold text-primary">{{ order.calculatedTotal | currency }}</p>
-								</div>
-								@if (
-									currentStatus() !== 'canceld' &&
-									currentStatus() !== 'shipped' &&
-									currentStatus() !== 'delivered'
-								) {
-									<button
-										class="btn btn-error btn-sm selector-radius"
-										(click)="cancelOrder(order.id)"
-									>
-										Cancel Order
-									</button>
-								}
-							</div>
-						</div>
+  <!-- Orders List -->
+  @if (currentList().length !== 0) {
+  <div class="flex flex-col gap-6">
+    @for (order of currentList(); track $index) {
+    <div class="card bg-base-100 shadow-lg card-radius overflow-hidden">
+      <div class="card-body p-6">
+        <!-- Order Header -->
+        <div
+          class="flex flex-col lg:flex-row justify-between items-start gap-4 mb-4"
+        >
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-2">
+              <h2 class="text-xl font-bold">
+                Order #{{ order._id.slice(-8) }}
+              </h2>
+              <div
+                class="badge badge-lg"
+                [ngClass]="statusBadgeColor(order.shipping_status)"
+              >
+                {{ order.status }}
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-4 text-sm opacity-70">
+              <div>
+                <span class="font-semibold">Payment:</span>
+                <span class="ml-1">{{ order.paymentMethod }}</span>
+              </div>
+              <div>
+                <span class="font-semibold">Created:</span>
+                <span class="ml-1">{{ order.createdAt | date: 'short' }}</span>
+              </div>
+              @if (order.created_at) {
+              <div>
+                <span class="font-semibold">Arrives:</span>
+                <span class="ml-1 text-success"
+                  >{{ order.created_at | date: 'short' }}</span
+                >
+              </div>
+              }
+            </div>
+          </div>
+          <div class="flex flex-col items-end gap-3">
+            <div class="text-right">
+              <p class="text-sm opacity-70">Total Amount</p>
+              <p class="text-2xl font-bold text-primary">
+                {{ order.calculatedTotal | currency }}
+              </p>
+            </div>
+            @if ( currentStatus() !== 'canceld' && currentStatus() !== 'shipped'
+            && currentStatus() !== 'delivered' ) {
+            <button
+              class="btn btn-error btn-sm selector-radius"
+              (click)="cancelOrder(order.id)"
+            >
+              Cancel Order
+            </button>
+            }
+          </div>
+        </div>
 
-						<!-- Order Items -->
-						<div class="collapse collapse-plus bg-base-200 card-radius">
-							<input type="checkbox" />
-							<div class="collapse-title text-lg font-semibold px-4">
-								View Items ({{ order.order_items?.length || 0 }})
-							</div>
-							<div class="collapse-content px-4 pb-4">
-								<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-									@for (item of order.order_items; track $index) {
-										<div class="card bg-base-100 shadow-sm card-radius">
-											<div class="card-body p-4">
-												<h3 class="font-semibold text-base mb-2 line-clamp-2">
-													{{ item.product_name }}
-												</h3>
-												<div class="flex flex-wrap justify-between items-center gap-2 text-sm">
-													<div class="flex flex-col">
-														<span class="opacity-70">Price</span>
-														<span class="font-semibold">{{ item.product_price | currency }}</span>
-													</div>
-													<div class="flex flex-col">
-														<span class="opacity-70">Quantity</span>
-														<span class="font-semibold">{{ item.quantity }}</span>
-													</div>
-													<div class="flex flex-col">
-														<span class="opacity-70">Total</span>
-														<span class="font-bold text-primary">{{ item.item_total | currency }}</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									}
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			}
-		</div>
-	} @else {
-		<div class="flex flex-col items-center justify-center py-20 bg-base-100 card-radius shadow-md">
-			<h1 class="text-4xl font-bold text-base-content opacity-40 mb-4">No Orders Found</h1>
-			<p class="text-base-content opacity-60">You don't have any {{ currentStatus() }} orders yet</p>
-		</div>
-	}
+        <!-- Order Items -->
+        <div class="collapse collapse-plus bg-base-200 card-radius">
+          <input type="checkbox" />
+          <div class="collapse-title text-lg font-semibold px-4">
+            View Items ({{ order.order_items?.length || 0 }})
+          </div>
+          <div class="collapse-content px-4 pb-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              @for (item of order.order_items; track $index) {
+              <div class="card bg-base-100 shadow-sm card-radius">
+                <div class="card-body p-4">
+                  <h3 class="font-semibold text-base mb-2 line-clamp-2">
+                    {{ item.product_name }}
+                  </h3>
+                  <div
+                    class="flex flex-wrap justify-between items-center gap-2 text-sm"
+                  >
+                    <div class="flex flex-col">
+                      <span class="opacity-70">Price</span>
+                      <span class="font-semibold"
+                        >{{ item.product_price | currency }}</span
+                      >
+                    </div>
+                    <div class="flex flex-col">
+                      <span class="opacity-70">Quantity</span>
+                      <span class="font-semibold">{{ item.quantity }}</span>
+                    </div>
+                    <div class="flex flex-col">
+                      <span class="opacity-70">Total</span>
+                      <span class="font-bold text-primary"
+                        >{{ item.item_total | currency }}</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+  } @else {
+  <div
+    class="flex flex-col items-center justify-center py-20 bg-base-100 card-radius shadow-md"
+  >
+    <h1 class="text-4xl font-bold text-base-content opacity-40 mb-4">
+      No Orders Found
+    </h1>
+    <p class="text-base-content opacity-60">
+      You don't have any {{ currentStatus() }} orders yet
+    </p>
+  </div>
+  }
 </div>

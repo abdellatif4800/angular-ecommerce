@@ -37,7 +37,9 @@ export class SearchProductsList implements OnInit {
     this.rows = event.rows ?? 5;
 
     this.nextFilterdPage.set(
-      `?search=${this.data()?.['productsList'].next}&page=${(event.page ?? 0) + 1}`,
+      `?search=${this.data()?.['productsList'].next}&page=${
+        (event.page ?? 0) + 1
+      }`
     );
 
     this.productService.getListOfProducts(this.nextFilterdPage()).subscribe({
@@ -54,9 +56,12 @@ export class SearchProductsList implements OnInit {
             price: prod.price,
             discount: prod.discount,
             rate: prod.rate,
-            image: prod.images[0].photo.replace('ecom-minio-storage', 'localhost'),
+            image: prod.images[0].photo.replace(
+              'ecom-minio-storage',
+              'localhost'
+            ),
             stock: prod.stock,
-          })),
+          }))
         );
       },
     });
@@ -79,7 +84,7 @@ export class SearchProductsList implements OnInit {
         rate: prod.rate,
         image: prod.images[0].photo.replace('ecom-minio-storage', 'localhost'),
         stock: prod.stock,
-      })),
+      }))
     );
   }
 
@@ -94,9 +99,12 @@ export class SearchProductsList implements OnInit {
           price: prod.price,
           discount: prod.discount,
           rate: prod.rate,
-          image: prod.images[0].photo.replace('ecom-minio-storage', 'localhost'),
+          image: prod.images[0].photo.replace(
+            'ecom-minio-storage',
+            'localhost'
+          ),
           stock: prod.stock,
-        })),
+        }))
       );
       // console.log(this.products());
     });

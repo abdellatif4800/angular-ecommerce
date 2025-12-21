@@ -40,11 +40,19 @@ export class Layout implements OnInit {
   private readonly router = inject(Router);
   private readonly activeRoute = inject(ActivatedRoute);
 
+  currentTheme = signal('cmyk')
+
   currentPath = signal<string>('');
 
   currentCategory = signal<string>('');
   currentProduct = signal<string>('');
   currentSearchKeyword = signal<string>('');
+
+  handelChangeTheme(theme: string) {
+    this.currentTheme.set(theme)
+
+  }
+
 
   ngOnInit() {
     const categoryName = this.activeRoute.snapshot;

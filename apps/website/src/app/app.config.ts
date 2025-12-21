@@ -15,6 +15,5 @@ export const appConfig: ApplicationConfig = {
     provideRouter(appRoutes),
     provideHttpClient(withFetch()),
     CookieService,
-
   ],
 };

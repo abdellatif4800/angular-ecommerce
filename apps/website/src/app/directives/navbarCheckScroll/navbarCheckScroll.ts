@@ -1,4 +1,10 @@
-import { Directive, ElementRef, HostListener, inject, signal } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  HostListener,
+  inject,
+  signal,
+} from '@angular/core';
 
 @Directive({
   selector: '[dirNavbarCheckScroll]',
@@ -6,7 +12,7 @@ import { Directive, ElementRef, HostListener, inject, signal } from '@angular/co
 export class NavbarCheckScroll {
   // private el = inject(ElementRef);
 
-  constructor(private el: ElementRef) { }
+  constructor(private el: ElementRef) {}
   private lastScrollTop = signal(0);
 
   @HostListener('window:scroll', ['$event'])

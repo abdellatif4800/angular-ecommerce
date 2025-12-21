@@ -36,6 +36,14 @@
       <app-login-form></app-login-form>
       } @else {
       <div class="flex justify-between items-center gap-4">
+          <button
+                      class="btn btn-ghost btn-circle relative"
+(click)='handelChangeTheme()'>
+                          <lucide-angular
+                  [img]="SunIcon"
+                  class="w-4 h-4"
+                ></lucide-angular>
+</button>
         <a
           routerLink="/userLists/cart"
           class="btn btn-ghost btn-circle relative"
@@ -48,7 +56,6 @@
             0
           </span>
         </a>
-
         <div class="dropdown dropdown-end">
           <div
             tabindex="0"

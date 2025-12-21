@@ -1,19 +1,20 @@
 import { NgClass, NgStyle } from '@angular/common';
-import { ChangeDetectorRef, Component, inject, NgZone, signal, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  inject,
+  NgZone,
+  signal,
+  OnInit,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CartServices } from '@ecommerce-angular/services'
+import { CartServices } from '@ecommerce-angular/services';
 import { CheckoutDialog } from '../checkout-dialog/checkout-dialog';
 import { LucideAngularModule, Minus, Plus, Trash } from 'lucide-angular';
 
 @Component({
   selector: 'app-cart-list',
-  imports: [
-    LucideAngularModule,
-    CheckoutDialog,
-    NgClass,
-    NgStyle,
-    FormsModule,
-  ],
+  imports: [LucideAngularModule, CheckoutDialog, NgClass, NgStyle, FormsModule],
   templateUrl: './cart-list.html',
   styleUrl: './cart-list.css',
 })
@@ -31,16 +32,14 @@ export class CartList implements OnInit {
   loadCartData() {
     this.cartServices.retrieveCart().subscribe({
       next: (res: any) => {
-
-        this.cartItems.set(res.items)
-        this.cartTotal.set(res.cartTotal)
-      }
-    })
-
+        this.cartItems.set(res.items);
+        this.cartTotal.set(res.cartTotal);
+      },
+    });
   }
 
   ngOnInit() {
-    this.loadCartData()
+    this.loadCartData();
   }
 
   priceAfterDiscount = (price: number, discount: number) => {
@@ -55,9 +54,9 @@ export class CartList implements OnInit {
 
   currentStep = signal(1);
   changeCurrentStep(targetStep: number) {
-    this.currentStep.set(targetStep)
+    this.currentStep.set(targetStep);
     if (this.currentStep() === 1) {
-      this.loadCartData()
+      this.loadCartData();
     }
   }
 
@@ -78,7 +77,6 @@ export class CartList implements OnInit {
           this.cd.detectChanges();
           console.log(res);
         },
-
       });
     }
   }
@@ -123,5 +121,4 @@ export class CartList implements OnInit {
       },
     });
   }
-
 }

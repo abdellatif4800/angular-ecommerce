@@ -1,6 +1,14 @@
-import { Component, ElementRef, inject, ViewChild, OnInit, signal, output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  ViewChild,
+  OnInit,
+  signal,
+  output,
+} from '@angular/core';
 import { ProductsServices } from '@ecommerce-angular/services';
-import { LucideAngularModule, SquarePen, } from 'lucide-angular';
+import { LucideAngularModule, SquarePen } from 'lucide-angular';
 
 @Component({
   selector: 'dashboard-images-modal',
@@ -9,10 +17,10 @@ import { LucideAngularModule, SquarePen, } from 'lucide-angular';
   styleUrl: './imagesModal.css',
 })
 export class ImagesModal implements OnInit {
-  private productService = inject(ProductsServices)
-  readonly editIcon = SquarePen
+  private productService = inject(ProductsServices);
+  readonly editIcon = SquarePen;
 
-  images = signal<any>([])
+  images = signal<any>([]);
 
   imageName = output<string>();
 
@@ -21,15 +29,13 @@ export class ImagesModal implements OnInit {
       next: (res) => {
         this.images.set(res);
         console.log(this.images());
-
-
-      }
-    })
+      },
+    });
   }
 
   selectImage(fileName: string) {
     this.imageName.emit(fileName);
-    this.closeModal()
+    this.closeModal();
   }
 
   @ViewChild('imagesModal') imagesModal!: ElementRef<HTMLDialogElement>;
@@ -41,5 +47,4 @@ export class ImagesModal implements OnInit {
   closeModal() {
     this.imagesModal.nativeElement.close();
   }
-
 }

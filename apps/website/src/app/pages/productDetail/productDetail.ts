@@ -1,4 +1,12 @@
-import { Component, computed, inject, input, model, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  model,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgStyle, UpperCasePipe } from '@angular/common';
@@ -51,7 +59,7 @@ export class ProductDetail implements OnInit {
       },
     });
 
-    console.log("data", this.data().product);
+    // console.log('data', this.data().product);
 
     // this.productService.getListOfProducts(`?search=${this.currentCategory()}`).subscribe({
     //   next: (res) => {
@@ -70,8 +78,6 @@ export class ProductDetail implements OnInit {
     //   },
     // });
   }
-
-
 
   currentID = signal<number>(0);
   currentCategory = signal('');

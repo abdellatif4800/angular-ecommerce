@@ -1,9 +1,13 @@
 <div class="w-full flex flex-col gap-6 relative">
-  <comp-filter-sidebar (currentList)="getFilteredData($event)"></comp-filter-sidebar>
+  <comp-filter-sidebar
+    (currentList)="getFilteredData($event)"
+  ></comp-filter-sidebar>
 
-  <div class="h-full w-full mr-5 grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-3">
+  <div
+    class="h-full w-full mr-5 grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-3"
+  >
     @for (prod of products(); track $index; let idx = $index) {
-      <!-- <app-comp-product-card [product]="prod"></app-comp-product-card> -->
+    <!-- <app-comp-product-card [product]="prod"></app-comp-product-card> -->
     }
   </div>
   <!-- <p-paginator -->

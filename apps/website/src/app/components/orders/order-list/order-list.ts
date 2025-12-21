@@ -1,15 +1,18 @@
-import { Component, effect, inject, signal, ViewChild, OnInit } from '@angular/core';
+import {
+  Component,
+  effect,
+  inject,
+  signal,
+  ViewChild,
+  OnInit,
+} from '@angular/core';
 import { OrdersServices } from '@ecommerce-angular/services';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe, CurrencyPipe, NgStyle, NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-order-list',
-  imports: [
-    DatePipe,
-    CurrencyPipe,
-    NgClass,
-  ],
+  imports: [DatePipe, CurrencyPipe, NgClass],
   templateUrl: './order-list.html',
   styleUrl: './order-list.css',
 })

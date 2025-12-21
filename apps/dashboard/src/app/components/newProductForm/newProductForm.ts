@@ -1,5 +1,19 @@
-import { Component, ElementRef, ViewChild, OnInit, input, Input, inject, signal } from '@angular/core';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+  OnInit,
+  input,
+  Input,
+  inject,
+  signal,
+} from '@angular/core';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { ProductsServices } from '@ecommerce-angular/services';
 
 @Component({
@@ -9,18 +23,18 @@ import { ProductsServices } from '@ecommerce-angular/services';
   styleUrl: './newProductForm.css',
 })
 export class NewProductForm implements OnInit {
-  private productServices = inject(ProductsServices)
+  private productServices = inject(ProductsServices);
 
   ngOnInit() {
     this.productServices.getCategories().subscribe({
       next: (data) => {
-        this.categoriesList.set(data)
-        console.log(this.categoriesList())
-      }
-    })
+        this.categoriesList.set(data);
+        console.log(this.categoriesList());
+      },
+    });
   }
 
-  categoriesList = signal<any>([])
+  categoriesList = signal<any>([]);
 
   @ViewChild('newProductModal') formModal!: ElementRef<HTMLDialogElement>;
 
@@ -32,14 +46,12 @@ export class NewProductForm implements OnInit {
     this.formModal.nativeElement.close();
   }
 
-
-
   productForm = new FormGroup({
-    productName: new FormControl('',),
-    price: new FormControl(null,),
-    stock: new FormControl(null,),
-    subCategoryID: new FormControl('',),
-    image: new FormControl('')
+    productName: new FormControl(''),
+    price: new FormControl(null),
+    stock: new FormControl(null),
+    subCategoryID: new FormControl(''),
+    image: new FormControl(''),
   });
 
   selectedFile: File | any = null;
@@ -54,21 +66,25 @@ export class NewProductForm implements OnInit {
   submitForm() {
     const uploadData = new FormData();
 
-    uploadData.append('productName', this.productForm.get('productName')!.value || '');
+    uploadData.append(
+      'productName',
+      this.productForm.get('productName')!.value || ''
+    );
     uploadData.append('price', this.productForm.get('price')!.value || '');
     uploadData.append('stock', this.productForm.get('stock')!.value || '');
-    uploadData.append('subCategoryID', this.productForm.get('subCategoryID')!.value || '');
+    uploadData.append(
+      'subCategoryID',
+      this.productForm.get('subCategoryID')!.value || ''
+    );
 
     uploadData.append('image', this.selectedFile, this.selectedFile.name);
 
-
     this.productServices.createProduct(uploadData).subscribe({
       next: (data) => {
-        this.productServices.refreshProducts.update(v => v + 1);
-        this.productForm.reset()
-        this.closeModal()
-      }
-    })
+        this.productServices.refreshProducts.update((v) => v + 1);
+        this.productForm.reset();
+        this.closeModal();
+      },
+    });
   }
-
 }

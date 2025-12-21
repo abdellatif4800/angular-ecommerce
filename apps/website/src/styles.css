@@ -1,21 +1,6 @@
 @import 'tailwindcss';
 
-@plugin "daisyui"{
-  themes:all
-}
-
-:root {
-  --radius-selector: 0.5rem;
-  --radius-field: 0.75rem;
-  --radius-box: 1rem;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  background-color: hsl(var(--b1));
-  color: hsl(var(--bc));
+@plugin "daisyui" {
+  themes: all;
 }
 

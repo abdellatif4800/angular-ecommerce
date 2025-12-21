@@ -1,21 +1,24 @@
-<button class="rounded-none size-8 cursor-pointer btn btn-warning flex items-center justify-center" (click)="openModal()">
-	<lucide-angular [img]="editIcon"></lucide-angular>
+<button
+  class="rounded-none size-8 cursor-pointer btn btn-warning flex items-center justify-center"
+  (click)="openModal()"
+>
+  <lucide-angular [img]="editIcon"></lucide-angular>
 </button>
 
 <dialog #imagesModal class="modal w-full">
-	<div class="modal-box w-13/14 max-w-5xl h-120 z-10 flex flex-col gap-5">
-		<h3 class="text-lg font-bold">Images</h3>
-		<div class='grid grid-cols-5 gap-2'>
-			@for(image of images();track $index){
-			<figure class='cursor-pointer' (click)='selectImage(image.filename)'>
-				<img [src]="image.url" alt="Shoes">
-			</figure>
-			}
-		</div>
-		<div class="modal-action">
-			<!-- Submit button will close the modal if valid -->
-			<!-- <button type="submit" class="btn">Submit</button> -->
-			<button type="button" class="btn" (click)="closeModal()">Close</button>
-		</div>
-	</div>
+  <div class="modal-box w-13/14 max-w-5xl h-120 z-10 flex flex-col gap-5">
+    <h3 class="text-lg font-bold">Images</h3>
+    <div class="grid grid-cols-5 gap-2">
+      @for(image of images();track $index){
+      <figure class="cursor-pointer" (click)="selectImage(image.filename)">
+        <img [src]="image.url" alt="Shoes" />
+      </figure>
+      }
+    </div>
+    <div class="modal-action">
+      <!-- Submit button will close the modal if valid -->
+      <!-- <button type="submit" class="btn">Submit</button> -->
+      <button type="button" class="btn" (click)="closeModal()">Close</button>
+    </div>
+  </div>
 </dialog>
